@@ -4,7 +4,19 @@ module.exports = {
   content: ['./app/**/*.{js,jsx,ts,tsx}'],
   presets: [require('nativewind/preset')],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: 'var(--color-primary)',
+        background: 'var(--color-background)',
+        content: 'var(--color-content)',
+      },
+      fontFamily: {
+        display: 'Audiowide-Regular',
+        content: 'Lato-Regular',
+        'content-thin': 'Lato-Thin',
+        'content-bold': 'Lato-Bold',
+      },
+    },
   },
   plugins: [],
 };
