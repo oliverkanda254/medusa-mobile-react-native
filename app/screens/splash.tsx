@@ -1,13 +1,14 @@
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, StackActions} from '@react-navigation/native';
 import React, {useEffect} from 'react';
-import {StatusBar, Text, View} from 'react-native';
+import {StatusBar, View} from 'react-native';
+import Text from '@components/common/text';
 
 const Splash = () => {
   const navigation = useNavigation();
   useEffect(() => {
     setTimeout(() => {
       // Temporary navigation to the home screen
-      navigation.navigate('Home');
+      navigation.dispatch(StackActions.replace('Home'));
     }, 500);
   }, [navigation]);
   return (
@@ -18,7 +19,9 @@ const Splash = () => {
         backgroundColor="transparent"
       />
       <View className="flex-1 justify-center items-center bg-primary">
-        <Text className="font-display text-content-inverse text-5xl text-center">
+        <Text
+          type="display"
+          className="text-content-inverse text-5xl text-center">
           MEDUSA{'\n'}NATIVE
         </Text>
       </View>

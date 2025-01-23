@@ -22,6 +22,9 @@ export default function App() {
 
 const RootStack = createNativeStackNavigator({
   initialRouteName: 'Splash',
+  screenOptions: {
+    headerShown: false,
+  },
   screens: {
     Splash: {
       screen: Splash,
