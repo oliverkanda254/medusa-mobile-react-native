@@ -6,8 +6,9 @@ import {
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ThemeProvider from '@styles/theme-provider';
 
-import '../global.css';
+import '@styles/global.css';
 import Splash from '@screens/splash';
+import Home from '@screens/home';
 
 export type RootStackParamList = StaticParamList<typeof RootStack>;
 
@@ -28,6 +29,7 @@ const RootStack = createNativeStackNavigator({
         headerShown: false,
       },
     },
+    Home,
   },
 });
 

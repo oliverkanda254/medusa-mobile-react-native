@@ -9,6 +9,7 @@ module.exports = {
         primary: 'var(--color-primary)',
         background: 'var(--color-background)',
         content: 'var(--color-content)',
+        'content-inverse': 'var(--color-content-inverse)',
       },
       fontFamily: {
         display: 'Audiowide-Regular',
