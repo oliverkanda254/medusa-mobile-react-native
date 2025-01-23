@@ -15,5 +15,5 @@ const config = mergeConfig(getDefaultConfig(__dirname), {
 });
 
 module.exports = wrapWithReanimatedMetroConfig(
-  withNativeWind(config, {input: './global.css'}),
+  withNativeWind(config, {input: './styles/global.css'}),
 );

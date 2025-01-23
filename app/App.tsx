@@ -4,10 +4,10 @@ import {
   StaticParamList,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import ThemeProvider from './styles/theme-provider';
+import ThemeProvider from '@styles/theme-provider';
 
 import '../global.css';
-import Splash from './screens/splash';
+import Splash from '@screens/splash';
 
 export type RootStackParamList = StaticParamList<typeof RootStack>;
 
