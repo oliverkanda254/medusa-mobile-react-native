@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         primary: 'var(--color-primary)',
         background: 'var(--color-background)',
+        'background-secondary': 'var(--color-background-secondary)',
         content: 'var(--color-content)',
         'content-inverse': 'var(--color-content-inverse)',
       },

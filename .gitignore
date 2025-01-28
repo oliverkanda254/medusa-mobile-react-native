@@ -22,6 +22,14 @@ DerivedData
 *.xcuserstate
 **/.xcode.env.local
 
+# env
+#
+.env
+
+# VS Code
+#
+.vscode/*
+
 # Android/IntelliJ
 #
 build/
@@ -72,3 +80,4 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+.env

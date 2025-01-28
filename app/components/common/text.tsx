@@ -1,5 +1,5 @@
 import React, {PropsWithChildren} from 'react';
-import {Text} from 'react-native';
+import {Text, TextProps} from 'react-native';
 import {tv, type VariantProps} from 'tailwind-variants';
 
 const text = tv({
@@ -14,7 +14,7 @@ const text = tv({
   },
 });
 
-type TextProps = VariantProps<typeof text> & {
+type CommonTextProps = VariantProps<typeof text> & {
   className?: string;
 };
 
@@ -22,13 +22,15 @@ const CommonText = ({
   type,
   className,
   children,
-}: PropsWithChildren<TextProps>) => {
+  ...rest
+}: PropsWithChildren<CommonTextProps & TextProps>) => {
   return (
     <Text
       className={text({
         type,
         className,
-      })}>
+      })}
+      {...rest}>
       {children}
     </Text>
   );

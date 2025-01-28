@@ -1,19 +1,42 @@
 import {useColorScheme} from 'nativewind';
-import React, {PropsWithChildren} from 'react';
-import themes from './themes';
+import React, {createContext, PropsWithChildren} from 'react';
+import {themes, themeColorSets} from '@styles/themes';
 import {View} from 'react-native';
+import {Colors} from '@styles/types';
+
+interface ThemeContext {
+  name: string;
+  colors: Colors;
+  colorScheme: 'light' | 'dark';
+  setThemeName: (name: string) => void;
+}
+
+export const ThemeContext = createContext<ThemeContext>({
+  name: 'default',
+  colors: themeColorSets.default.light,
+  colorScheme: 'light',
+  setThemeName: () => {},
+});
 
 type ThemeProviderProps = {
   name: string;
 };
 
-function ThemeProvider(props: PropsWithChildren<ThemeProviderProps>) {
-  const {colorScheme} = useColorScheme();
-  const themeStyle = themes[props.name][colorScheme || 'light'];
+function ThemeProvider({
+  name,
+  children,
+}: PropsWithChildren<ThemeProviderProps>) {
+  const [themeName, setThemeName] = React.useState(name);
+  const {colorScheme = 'light'} = useColorScheme();
+  const themeStyles = themes[themeName][colorScheme];
+  const colors = themeColorSets[themeName][colorScheme];
   return (
-    <View className="flex-1" style={themeStyle}>
-      {props.children}
-    </View>
+    <ThemeContext.Provider
+      value={{name: themeName, setThemeName, colors, colorScheme}}>
+      <View className="flex-1" style={themeStyles}>
+        {children}
+      </View>
+    </ThemeContext.Provider>
   );
 }
 

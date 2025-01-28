@@ -13,6 +13,7 @@ module.exports = {
           '@images': './app/images',
           '@screens': './app/screens',
           '@components': './app/components',
+          '@api': './app/api',
         },
       },
     ],
