@@ -19,25 +19,13 @@ export default function ProductPrice({
   const selectedPrice = variant ? variantPrice : cheapestPrice;
 
   if (!selectedPrice) {
-    return <View className="w-32 h-9 bg-gray-100 animate-pulse" />;
+    return <View className="w-32 h-7 bg-gray-100" />;
   }
 
   return (
     <View className="flex flex-col">
-      <Text
-        className={
-          selectedPrice.price_type === 'sale'
-            ? 'text-primary font-medium text-xl'
-            : ' font-medium text-xl'
-        }>
-        {!variant && 'From '}
-        <Text
-          testID="product-price"
-          accessibilityValue={{
-            text: selectedPrice.calculated_price_number.toString(),
-          }}>
-          {selectedPrice.calculated_price}
-        </Text>
+      <Text className="font-content-bold text-lg">
+        {selectedPrice.calculated_price}
       </Text>
 
       {selectedPrice.price_type === 'sale' && (

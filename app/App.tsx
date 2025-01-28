@@ -12,6 +12,8 @@ import Home from '@screens/home';
 
 import '@styles/global.css';
 import ProductScreen from '@screens/product-detail';
+import {CartProvider} from './data/cart-context';
+import {RegionProvider} from './data/region-context';
 
 export type RootStackParamList = StaticParamList<typeof RootStack>;
 
@@ -20,11 +22,15 @@ const queryClient = new QueryClient();
 export default function App() {
   return (
     <ThemeProvider name="default">
-      <QueryClientProvider client={queryClient}>
-        <GestureHandlerRootView>
-          <Navigation />
-        </GestureHandlerRootView>
-      </QueryClientProvider>
+      <RegionProvider>
+        <CartProvider>
+          <QueryClientProvider client={queryClient}>
+            <GestureHandlerRootView>
+              <Navigation />
+            </GestureHandlerRootView>
+          </QueryClientProvider>
+        </CartProvider>
+      </RegionProvider>
     </ThemeProvider>
   );
 }

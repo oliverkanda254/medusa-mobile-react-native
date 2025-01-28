@@ -12,13 +12,13 @@
   "dependencies": {
     "@medusajs/js-sdk": "^2.4.0",
     "@medusajs/types": "^2.3.1",
+    "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-vector-icons/ant-design": "^4.4.2",
     "@react-native-vector-icons/common": "^11.0.0",
     "@react-navigation/elements": "^2.2.5",
     "@react-navigation/native": "^7.0.14",
     "@react-navigation/native-stack": "^7.2.0",
     "@tanstack/react-query": "^5.64.2",
-    "core-js": "^3.40.0",
     "nativewind": "^4.1.23",
     "react": "18.3.1",
     "react-native": "0.76.6",
@@ -29,7 +29,8 @@
     "react-native-screens": "^4.5.0",
     "react-native-url-polyfill": "^2.0.0",
     "tailwind-variants": "^0.3.1",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "util": "^0.12.5"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

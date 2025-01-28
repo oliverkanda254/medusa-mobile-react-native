@@ -6,7 +6,7 @@ const text = tv({
   variants: {
     type: {
       display: 'text-display font-display',
-      content: 'text-content font-content',
+      content: 'text-content font-content leading-4',
     },
   },
   defaultVariants: {

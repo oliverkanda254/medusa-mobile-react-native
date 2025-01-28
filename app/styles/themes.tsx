@@ -8,7 +8,7 @@ export const themeColorSets: ThemeColorSets = {
       primary: '#8e6cef',
       background: 'white',
       backgroundSecondary: '#F0F3F8',
-      content: 'black',
+      content: '#120120',
       contentInverse: 'white',
     },
     dark: {

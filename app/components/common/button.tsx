@@ -1,9 +1,50 @@
 import React from 'react';
-import {TouchableOpacity} from 'react-native';
+import {ActivityIndicator, TouchableOpacity} from 'react-native';
 import Text from './text';
+import {tv, type VariantProps} from 'tailwind-variants';
+import {useColors} from '@styles/hooks';
 
-type BaseProps = {
+const button = tv({
+  base: 'justify-center items-center rounded-xl h-14',
+  variants: {
+    variant: {
+      primary: 'bg-primary',
+      secondary: 'bg-background border border-gray-400',
+    },
+    disabled: {
+      true: 'bg-gray-300',
+      false: '',
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+    disabled: false,
+  },
+});
+
+const buttonText = tv({
+  base: 'font-content-bold block mx-4',
+  variants: {
+    disabled: {
+      true: 'text-gray-400',
+      false: '',
+    },
+    variant: {
+      primary: 'text-content-inverse',
+      secondary: 'text-content',
+    },
+  },
+  defaultVariants: {
+    variant: 'primary',
+    disabled: false,
+  },
+});
+
+type BaseProps = VariantProps<typeof button> & {
+  className?: string;
   onClick?: () => void;
+  disabled?: boolean;
+  loading?: boolean;
 };
 
 type WithTitle = BaseProps & {
@@ -18,20 +59,34 @@ type WithChildren = BaseProps & {
 
 type Props = WithTitle | WithChildren;
 
-const CommonButton = ({title, onClick, children}: Props) => {
+const CommonButton = ({
+  title,
+  onClick,
+  loading,
+  disabled,
+  variant,
+  children,
+}: Props) => {
+  const colors = useColors();
+  const renderContent = () => {
+    if (loading) {
+      return <ActivityIndicator size="small" color={colors.contentInverse} />;
+    }
+    if (children) {
+      return children;
+    }
+    return (
+      <Text className={buttonText({disabled, variant})} numberOfLines={1}>
+        {title}
+      </Text>
+    );
+  };
   return (
     <TouchableOpacity
-      onPress={onClick}
-      className="bg-primary justify-center items-center rounded-xl h-14">
-      {children ? (
-        children
-      ) : (
-        <Text
-          className="font-content-bold text-content-inverse block mx-4"
-          numberOfLines={1}>
-          {title}
-        </Text>
-      )}
+      onPress={loading ? () => {} : onClick}
+      disabled={disabled}
+      className={button({disabled, variant})}>
+      {renderContent()}
     </TouchableOpacity>
   );
 };

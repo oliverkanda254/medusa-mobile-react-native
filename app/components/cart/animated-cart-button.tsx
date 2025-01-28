@@ -1,6 +1,6 @@
 import Button from '@components/common/button';
 import Text from '@components/common/text';
-import React from 'react';
+import React, {useEffect} from 'react';
 import Icon from '@react-native-vector-icons/ant-design';
 import {View} from 'react-native';
 import Animated, {
@@ -9,14 +9,33 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useColors} from '@styles/hooks';
+import {useCart} from '../../data/cart-context';
+import {useProductQuantity} from '../../data/hooks';
 
-const AnimatedCartButton = ({}: {productId: string}) => {
-  const showViewCart = useSharedValue(false);
+type AnimatedCartButtonProps = {
+  productId: string;
+  selectedVariantId?: string;
+  disabled?: boolean;
+  inStock?: boolean;
+};
+
+const AnimatedCartButton = ({
+  productId,
+  selectedVariantId,
+  disabled = false,
+  inStock,
+}: AnimatedCartButtonProps) => {
+  const {addToCart} = useCart();
+  const [adding, setAdding] = React.useState(false);
+  const productQuantityInCart = useProductQuantity(productId);
+  const showViewCart = useSharedValue(productQuantityInCart > 0);
   const viewCartWidth = 192;
 
-  const showViewCartButton = () => {
-    showViewCart.value = !showViewCart.value;
-  };
+  useEffect(() => {
+    if (productQuantityInCart > 0) {
+      showViewCart.value = true;
+    }
+  }, [productQuantityInCart, showViewCart]);
 
   const rowStyles = useAnimatedStyle(() => {
     return {
@@ -27,34 +46,63 @@ const AnimatedCartButton = ({}: {productId: string}) => {
   const viewCartStyles = useAnimatedStyle(() => {
     return {
       width: withTiming(showViewCart.value ? viewCartWidth : 0),
+      opacity: withTiming(showViewCart.value ? 1 : 0),
     };
   });
+
+  const addToCartHandler = async () => {
+    if (!selectedVariantId || disabled || !inStock) {
+      return;
+    }
+    setAdding(true);
+    await addToCart(selectedVariantId, 1);
+    setAdding(false);
+  };
 
   return (
     <Animated.View className="p-4 flex-row" style={[rowStyles]}>
       <Animated.View style={[viewCartStyles]}>
-        <ViewCart />
+        <ViewCart quantity={productQuantityInCart} />
       </Animated.View>
       <View className="flex-1">
-        <Button title="Add to cart" onClick={showViewCartButton} />
+        <Button
+          title={selectedVariantId && !inStock ? 'Out of stock' : 'Add to cart'}
+          onClick={addToCartHandler}
+          disabled={disabled}
+          loading={adding}
+        />
       </View>
     </Animated.View>
   );
 };
 
-const ViewCart = () => {
+const ViewCart = ({quantity}: {quantity: number}) => {
   const colors = useColors();
   return (
-    <Button>
-      <View className="flex-row gap-1">
-        <Icon name="shopping-cart" size={18} color={colors.contentInverse} />
-        <Text
-          className="text-content-inverse font-content-bold"
-          numberOfLines={1}>
-          View cart
-        </Text>
+    <Button variant="secondary" disabled={quantity === 0}>
+      <View>
+        <View className="flex-row gap-1 items-center">
+          <Icon name="shopping-cart" size={18} color={colors.content} />
+          <Text className="text-content font-content-bold" numberOfLines={1}>
+            View cart
+          </Text>
+          <Badge quantity={quantity} />
+        </View>
       </View>
     </Button>
+  );
+};
+
+const Badge = ({quantity}: {quantity: number}) => {
+  const colors = useColors();
+  return (
+    <View
+      className="w-5 h-5 bg-primary rounded-full justify-center items-center"
+      style={{backgroundColor: colors.primary}}>
+      <Text className="text-sm text-content-inverse font-content-bold">
+        {quantity}
+      </Text>
+    </View>
   );
 };
 
