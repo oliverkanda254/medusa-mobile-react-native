@@ -9,8 +9,10 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {useColors} from '@styles/hooks';
-import {useCart} from '../../data/cart-context';
-import {useProductQuantity} from '../../data/hooks';
+import {useCart} from '@data/cart-context';
+import {useProductQuantity} from '@data/hooks';
+import {useNavigation} from '@react-navigation/native';
+import Badge from '@components/common/badge';
 
 type AnimatedCartButtonProps = {
   productId: string;
@@ -34,6 +36,8 @@ const AnimatedCartButton = ({
   useEffect(() => {
     if (productQuantityInCart > 0) {
       showViewCart.value = true;
+    } else {
+      showViewCart.value = false;
     }
   }, [productQuantityInCart, showViewCart]);
 
@@ -78,32 +82,33 @@ const AnimatedCartButton = ({
 
 const ViewCart = ({quantity}: {quantity: number}) => {
   const colors = useColors();
+  const navigation = useNavigation();
+  const navigateToCart = () => {
+    navigation.navigate('Cart');
+  };
+
   return (
-    <Button variant="secondary" disabled={quantity === 0}>
+    <Button
+      variant="secondary"
+      disabled={quantity === 0}
+      onClick={navigateToCart}>
       <View>
         <View className="flex-row gap-1 items-center">
-          <Icon name="shopping-cart" size={18} color={colors.content} />
-          <Text className="text-content font-content-bold" numberOfLines={1}>
+          <View>
+            <Icon name="shopping-cart" size={18} color={colors.content} />
+            <View className="absolute -top-[8] -right-[8]">
+              <Badge quantity={quantity} />
+            </View>
+          </View>
+          <Text className="ml-2 text-content font-content-bold" numberOfLines={1}>
             View cart
           </Text>
-          <Badge quantity={quantity} />
         </View>
       </View>
     </Button>
   );
 };
 
-const Badge = ({quantity}: {quantity: number}) => {
-  const colors = useColors();
-  return (
-    <View
-      className="w-5 h-5 bg-primary rounded-full justify-center items-center"
-      style={{backgroundColor: colors.primary}}>
-      <Text className="text-sm text-content-inverse font-content-bold">
-        {quantity}
-      </Text>
-    </View>
-  );
-};
+
 
 export default AnimatedCartButton;

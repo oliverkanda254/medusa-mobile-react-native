@@ -11,6 +11,7 @@ type CartContextType = {
   >;
   refreshCart: () => void;
   addToCart: (variantId: string, quantity: number) => Promise<void>;
+  updateLineItem: (lineItemId: string, quantity: number) => Promise<void>;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -42,16 +43,20 @@ export const CartProvider = ({children}: CartProviderProps) => {
           });
       } else {
         // retrieve cart
-        apiClient.store.cart.retrieve(cartId).then(({cart: dataCart}) => {
-          setCart(dataCart);
-        });
+        fetchCart(cartId);
       }
     });
   }, [cart, region]);
 
-  const refreshCart = async () => {
+  const resetCart = async () => {
     await AsyncStorage.removeItem('cart_id');
     setCart(undefined);
+  };
+
+  const fetchCart = async (cartId: string) => {
+    return apiClient.store.cart.retrieve(cartId).then(({cart: dataCart}) => {
+      setCart(dataCart);
+    });
   };
 
   const addToCart = async (variantId: string, quantity: number) => {
@@ -73,13 +78,38 @@ export const CartProvider = ({children}: CartProviderProps) => {
     }
   };
 
+  const updateLineItem = async (lineItemId: string, quantity: number) => {
+    if (!cart) {
+      return;
+    }
+
+    try {
+      if (quantity === 0) {
+        await apiClient.store.cart.deleteLineItem(cart.id, lineItemId);
+        await fetchCart(cart.id);
+      } else {
+        const {cart: dataCart} = await apiClient.store.cart.updateLineItem(
+          cart.id,
+          lineItemId,
+          {
+            quantity,
+          },
+        );
+        setCart(dataCart);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
         setCart,
-        refreshCart,
+        refreshCart: resetCart,
         addToCart,
+        updateLineItem,
       }}>
       {children}
     </CartContext.Provider>

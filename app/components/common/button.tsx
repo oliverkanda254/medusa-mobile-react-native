@@ -9,7 +9,7 @@ const button = tv({
   variants: {
     variant: {
       primary: 'bg-primary',
-      secondary: 'bg-background border border-gray-400',
+      secondary: 'bg-background border border-gray-300',
     },
     disabled: {
       true: 'bg-gray-300',
@@ -84,7 +84,7 @@ const CommonButton = ({
   return (
     <TouchableOpacity
       onPress={loading ? () => {} : onClick}
-      disabled={disabled}
+      disabled={disabled || loading}
       className={button({disabled, variant})}>
       {renderContent()}
     </TouchableOpacity>

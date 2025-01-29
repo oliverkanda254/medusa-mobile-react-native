@@ -1,5 +1,5 @@
 import {HttpTypes} from '@medusajs/types';
-import {formatImageUrl} from '../../utils/image-url';
+import {formatImageUrl} from '@utils/image-url';
 import {cssInterop} from 'nativewind';
 import React from 'react';
 import {Dimensions, Image, View} from 'react-native';

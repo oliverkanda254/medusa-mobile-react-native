@@ -14,6 +14,8 @@ module.exports = {
           '@screens': './app/screens',
           '@components': './app/components',
           '@api': './app/api',
+          '@utils': './app/utils',
+          '@data': './app/data',
         },
       },
     ],

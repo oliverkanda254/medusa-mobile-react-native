@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {getProductPrice} from '../../utils/product-price';
+import {getProductPrice} from '@utils/product-price';
 import {HttpTypes} from '@medusajs/types';
 import Text from '@components/common/text';
 

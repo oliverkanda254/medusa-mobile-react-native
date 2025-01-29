@@ -9,11 +9,12 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Splash from '@screens/splash';
 import Home from '@screens/home';
+import ProductScreen from '@screens/product-detail';
+import Cart from '@screens/cart';
+import {CartProvider} from '@data/cart-context';
+import {RegionProvider} from '@data/region-context';
 
 import '@styles/global.css';
-import ProductScreen from '@screens/product-detail';
-import {CartProvider} from './data/cart-context';
-import {RegionProvider} from './data/region-context';
 
 export type RootStackParamList = StaticParamList<typeof RootStack>;
 
@@ -49,6 +50,7 @@ const RootStack = createNativeStackNavigator({
     },
     Home,
     ProductScreen,
+    Cart,
   },
 });
 

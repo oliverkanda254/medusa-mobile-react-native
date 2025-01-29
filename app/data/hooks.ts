@@ -25,3 +25,13 @@ export const useVariantQuantity = (variantId: string) => {
 
   return quantity || 0;
 };
+
+export const useCartQuantity = () => {
+  const {cart} = useCart();
+
+  const quantity = cart?.items?.reduce((acc, item) => {
+    return acc + item.quantity;
+  }, 0);
+
+  return quantity || 0;
+};

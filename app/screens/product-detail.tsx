@@ -1,6 +1,6 @@
 import React, {PropsWithChildren, useMemo, useState} from 'react';
 import {useNavigation, type StaticScreenProps} from '@react-navigation/native';
-import {TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import AnimatedCartButton from '@components/cart/animated-cart-button';
 import apiClient from '@api/client';
 import {useQuery} from '@tanstack/react-query';
@@ -12,12 +12,12 @@ import {ScrollView} from 'react-native-gesture-handler';
 import Text from '@components/common/text';
 import ProductPrice from '@components/product/product-price';
 import Card from '@components/common/card';
-import utils from '../utils';
+import utils from '@utils/common';
 import OptionSelect from '@components/product/option-select';
 import {HttpTypes} from '@medusajs/types';
 import twColors from 'tailwindcss/colors';
-import {useCart} from '../data/cart-context';
 import {useColors} from '@styles/hooks';
+import RoundedButton from '@components/common/rounded-button';
 
 type Props = StaticScreenProps<{
   productId: string;
@@ -110,9 +110,6 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
       [optionId]: value,
     }));
   };
-
-  const {cart} = useCart();
-  console.log('cart id', cart?.id);
 
   return (
     <View className="flex-1 bg-background-secondary">
@@ -211,23 +208,6 @@ const SelectVariant = ({
       ))}
       <View />
     </View>
-  );
-};
-
-type RoundedButtonProps = {
-  onPress?: () => void;
-};
-
-const RoundedButton = ({
-  children,
-  onPress,
-}: PropsWithChildren<RoundedButtonProps>) => {
-  return (
-    <TouchableOpacity
-      onPress={onPress}
-      className="bg-background h-12 w-12 rounded-full items-center justify-center elevation-sm">
-      {children}
-    </TouchableOpacity>
   );
 };
 

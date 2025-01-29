@@ -7,7 +7,9 @@
       "@images/*": ["app/images/*"],
       "@screens/*": ["app/screens/*"],
       "@components/*": ["app/components/*"],
-      "@api/*": ["app/api/*"]
+      "@api/*": ["app/api/*"],
+      "@utils/*": ["app/utils/*"],
+      "@data/*": ["app/data/*"]
     }
   }
 }
