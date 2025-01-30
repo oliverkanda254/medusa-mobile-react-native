@@ -42,7 +42,7 @@ const buttonText = tv({
 
 type BaseProps = VariantProps<typeof button> & {
   className?: string;
-  onClick?: () => void;
+  onPress?: () => void;
   disabled?: boolean;
   loading?: boolean;
 };
@@ -61,7 +61,7 @@ type Props = WithTitle | WithChildren;
 
 const CommonButton = ({
   title,
-  onClick,
+  onPress,
   loading,
   disabled,
   variant,
@@ -83,7 +83,7 @@ const CommonButton = ({
   };
   return (
     <TouchableOpacity
-      onPress={loading ? () => {} : onClick}
+      onPress={loading ? () => {} : onPress}
       disabled={disabled || loading}
       className={button({disabled, variant})}>
       {renderContent()}

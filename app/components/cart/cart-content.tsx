@@ -1,0 +1,135 @@
+import {StoreCart} from '@medusajs/types';
+import React from 'react';
+import {Image, View} from 'react-native';
+import Text from '@components/common/text';
+import {HttpTypes} from '@medusajs/types';
+import LineItemQuantity from '@components/cart/line-item-quantity';
+import LineItemUnitPrice from '@components/cart/line-item-price';
+import {convertToLocale} from '@utils/product-price';
+
+type CartContentProps = {
+  cart: HttpTypes.StoreCart;
+  mode: 'checkout' | 'cart';
+};
+
+const CartContent = ({cart, mode}: CartContentProps) => {
+  return (
+    <View>
+      <CartItems cart={cart} mode={mode} />
+      <View className="mt-4">
+        <CartSummary cart={cart} />
+      </View>
+    </View>
+  );
+};
+
+const CartItems = ({
+  cart,
+  mode,
+}: {
+  cart?: StoreCart;
+  mode: 'checkout' | 'cart';
+}) => {
+  return (
+    <View>
+      {cart?.items?.map(item => (
+        <CartItem
+          key={item.id}
+          item={item}
+          currencyCode={cart.currency_code}
+          mode={mode}
+        />
+      ))}
+    </View>
+  );
+};
+
+type CartItemProps = {
+  item: HttpTypes.StoreCartLineItem;
+  currencyCode: string;
+  mode: 'checkout' | 'cart';
+};
+
+const CartItem = ({item, currencyCode, mode}: CartItemProps) => {
+  return (
+    <View className="flex flex-row gap-2 p-2 mb-2 bg-gray-100 rounded-lg items-center">
+      <Image source={{uri: item.thumbnail}} className="w-20 h-20" />
+      <View className="flex-1">
+        <Text className="text-base font-content-bold">
+          {item.product_title}
+        </Text>
+        {!!item.variant_title && (
+          <Text className="text-base opacity-80">
+            Variant: {item.variant_title}
+          </Text>
+        )}
+        <View className="mt-2 flex-1 flex-row justify-between">
+          <LineItemQuantity
+            quantity={item.quantity}
+            lineItemId={item.id}
+            mode={mode}
+          />
+          <LineItemUnitPrice item={item} currencyCode={currencyCode} />
+        </View>
+      </View>
+    </View>
+  );
+};
+
+type SummaryItem = {
+  name: string;
+  key: keyof StoreCart;
+};
+
+const CartSummary = ({cart}: {cart?: StoreCart}) => {
+  if (!cart) {
+    return null;
+  }
+  const summaryItems: SummaryItem[] = [
+    {
+      name: 'Subtotal',
+      key: 'subtotal',
+    },
+    {
+      name: 'Shipping',
+      key: 'shipping_total',
+    },
+    {
+      name: 'Taxes',
+      key: 'tax_total',
+    },
+  ];
+  return (
+    <View>
+      <Text className="text-2xl mb-4">Summary</Text>
+      <View className="border-t border-gray-300 py-4">
+        {summaryItems.map(item => (
+          <View
+            className="flex-row justify-between items-center"
+            key={item.key}>
+            <Text className="opacity-80">{item.name}</Text>
+            <Text className="text-base">
+              {convertToLocale({
+                amount: cart[item.key] as number,
+                currency_code: cart.currency_code,
+              })}
+            </Text>
+          </View>
+        ))}
+      </View>
+      <View className="border-t border-b border-gray-300 py-4">
+        <View className="flex-row justify-between items-center">
+          <Text className="opacity-80">Total</Text>
+          <Text className="text-lg font-content-bold">
+            {convertToLocale({
+              amount: cart.total,
+              currency_code: cart.currency_code,
+            })}
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
+};
+
+export default CartContent;

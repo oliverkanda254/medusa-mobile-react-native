@@ -9,9 +9,14 @@ import {useCart} from '@data/cart-context';
 type LineItemQuantityProps = {
   quantity: number;
   lineItemId: string;
+  mode: 'checkout' | 'cart';
 };
 
-const LineItemQuantity = ({quantity, lineItemId}: LineItemQuantityProps) => {
+const LineItemQuantity = ({
+  quantity,
+  lineItemId,
+  mode,
+}: LineItemQuantityProps) => {
   const colors = useColors();
   const {updateLineItem} = useCart();
   const [updating, setUpdating] = React.useState(false);
@@ -40,26 +45,30 @@ const LineItemQuantity = ({quantity, lineItemId}: LineItemQuantityProps) => {
 
   return (
     <View className="flex-row items-center gap-4">
-      <View className="flex flex-row gap-2 bg-background border-hairline border-primary rounded-lg self-start p-1 items-center">
-        <TouchableOpacity
-          onPress={decrement}
-          className="justify-center items-center px-1 py-1">
-          <Icon name="minus" size={12} color={colors.primary} />
-        </TouchableOpacity>
-        <Text className="text-base">{quantity}</Text>
-        <TouchableOpacity
-          onPress={increment}
-          className="justify-center items-center px-1 py-1">
-          <Icon name="plus" size={12} color={colors.primary} />
-        </TouchableOpacity>
-      </View>
+      {mode === 'cart' ? (
+        <View className="flex flex-row gap-2 bg-background border-hairline border-primary rounded-lg self-start p-1 items-center">
+          <TouchableOpacity
+            onPress={decrement}
+            className="justify-center items-center px-1 py-1">
+            <Icon name="minus" size={12} color={colors.primary} />
+          </TouchableOpacity>
+          <Text className="text-base">{quantity}</Text>
+          <TouchableOpacity
+            onPress={increment}
+            className="justify-center items-center px-1 py-1">
+            <Icon name="plus" size={12} color={colors.primary} />
+          </TouchableOpacity>
+        </View>
+      ) : (
+        <Text className="text-base">Qty: {quantity}</Text>
+      )}
       {updating ? (
         <ActivityIndicator size="small" color={colors.primary} />
-      ) : (
+      ) : mode === 'cart' ? (
         <TouchableOpacity onPress={deleteLineItem}>
           <Icon name="delete" size={16} color={twColors.gray[600]} />
         </TouchableOpacity>
-      )}
+      ) : null}
     </View>
   );
 };

@@ -4,14 +4,33 @@ import {useRegion} from './region-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '@api/client';
 
+type AddressFields = {
+  first_name: string;
+  last_name: string;
+  address_1: string;
+  company?: string;
+  postal_code: string;
+  city: string;
+  country_code: string;
+  province?: string;
+  phone: string;
+};
+
+type CartUpdateData = Partial<{
+  email: string;
+  shipping_address: AddressFields;
+  billing_address: AddressFields;
+}>;
+
 type CartContextType = {
   cart?: HttpTypes.StoreCart;
   setCart: React.Dispatch<
     React.SetStateAction<HttpTypes.StoreCart | undefined>
   >;
-  refreshCart: () => void;
+  resetCart: () => Promise<void>;
   addToCart: (variantId: string, quantity: number) => Promise<void>;
   updateLineItem: (lineItemId: string, quantity: number) => Promise<void>;
+  updateCart: (data: CartUpdateData) => Promise<HttpTypes.StoreCart>;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -23,6 +42,8 @@ type CartProviderProps = {
 export const CartProvider = ({children}: CartProviderProps) => {
   const [cart, setCart] = useState<HttpTypes.StoreCart>();
   const {region} = useRegion();
+
+  const additionalFields = '+shipping_methods.name';
 
   useEffect(() => {
     if (cart || !region) {
@@ -51,12 +72,18 @@ export const CartProvider = ({children}: CartProviderProps) => {
   const resetCart = async () => {
     await AsyncStorage.removeItem('cart_id');
     setCart(undefined);
+    console.log('resetCart');
   };
 
   const fetchCart = async (cartId: string) => {
-    return apiClient.store.cart.retrieve(cartId).then(({cart: dataCart}) => {
-      setCart(dataCart);
-    });
+    console.log('fetchCart');
+    return apiClient.store.cart
+      .retrieve(cartId, {
+        fields: additionalFields,
+      })
+      .then(({cart: dataCart}) => {
+        setCart(dataCart);
+      });
   };
 
   const addToCart = async (variantId: string, quantity: number) => {
@@ -102,14 +129,31 @@ export const CartProvider = ({children}: CartProviderProps) => {
     }
   };
 
+  const updateCart = async (data: CartUpdateData) => {
+    if (!cart?.id) {
+      throw new Error('No cart found');
+    }
+
+    const {cart: updatedCart} = await apiClient.store.cart.update(
+      cart.id,
+      data,
+      {
+        fields: additionalFields,
+      },
+    );
+    setCart(updatedCart);
+    return updatedCart;
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
         setCart,
-        refreshCart: resetCart,
+        resetCart,
         addToCart,
         updateLineItem,
+        updateCart,
       }}>
       {children}
     </CartContext.Provider>
@@ -125,3 +169,6 @@ export const useCart = () => {
 
   return context;
 };
+
+// Export types for reuse in other components
+export type {AddressFields, CartUpdateData};

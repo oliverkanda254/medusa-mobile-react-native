@@ -73,7 +73,7 @@ const AnimatedCartButton = ({
       <View className="flex-1">
         <Button
           title={selectedVariantId && !inStock ? 'Out of stock' : 'Add to cart'}
-          onClick={addToCartHandler}
+          onPress={addToCartHandler}
           disabled={disabled}
           loading={adding}
         />
@@ -113,7 +113,7 @@ const ViewCart = ({quantity}: {quantity: number}) => {
     <Button
       variant="secondary"
       disabled={quantity === 0}
-      onClick={navigateToCart}>
+      onPress={navigateToCart}>
       <View>
         <View className="flex-row gap-1 items-center">
           <View>

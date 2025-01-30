@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import {
   createStaticNavigation,
   StaticParamList,
@@ -11,6 +11,7 @@ import Splash from '@screens/splash';
 import Home from '@screens/home';
 import ProductScreen from '@screens/product-detail';
 import Cart from '@screens/cart';
+import Checkout from '@screens/checkout';
 import {CartProvider} from '@data/cart-context';
 import {RegionProvider} from '@data/region-context';
 
@@ -51,6 +52,7 @@ const RootStack = createNativeStackNavigator({
     Home,
     ProductScreen,
     Cart,
+    Checkout,
   },
 });
 

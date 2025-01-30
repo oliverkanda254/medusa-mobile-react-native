@@ -15,7 +15,7 @@ const Navbar = ({title}: NavbarProps) => {
     navigation.goBack();
   };
   return (
-    <View className="p-4 h-14 flex-row flex-1 justify-between items-center">
+    <View className="p-4 h-14 flex-row justify-between items-center">
       <View className="flex-1">
         <RoundedButton onPress={goBack}>
           <Icon name="left" size={14} />
