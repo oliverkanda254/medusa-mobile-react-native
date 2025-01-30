@@ -72,11 +72,9 @@ export const CartProvider = ({children}: CartProviderProps) => {
   const resetCart = async () => {
     await AsyncStorage.removeItem('cart_id');
     setCart(undefined);
-    console.log('resetCart');
   };
 
   const fetchCart = async (cartId: string) => {
-    console.log('fetchCart');
     return apiClient.store.cart
       .retrieve(cartId, {
         fields: additionalFields,

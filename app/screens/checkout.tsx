@@ -256,7 +256,7 @@ const AddressForm = ({
         control={control}
         name={getFieldName('country_code')}
         render={({field: {onChange, value}}) => (
-          <View>
+          <View className="mb-4">
             <Text className="text-sm font-content mb-2">Country</Text>
             <View
               className={`border rounded-md ${
@@ -750,12 +750,6 @@ const Checkout = () => {
 
   // Check if cart is empty
   const isEmptyCart = !cart?.items || cart.items.length === 0;
-
-  React.useEffect(() => {
-    if (isEmptyCart) {
-      navigation.navigate('Cart');
-    }
-  }, [isEmptyCart, navigation]);
 
   if (isEmptyCart) {
     return null;
