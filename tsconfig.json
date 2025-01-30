@@ -9,7 +9,8 @@
       "@components/*": ["app/components/*"],
       "@api/*": ["app/api/*"],
       "@utils/*": ["app/utils/*"],
-      "@data/*": ["app/data/*"]
+      "@data/*": ["app/data/*"],
+      "@types/*": ["app/types/*"]
     }
   }
 }

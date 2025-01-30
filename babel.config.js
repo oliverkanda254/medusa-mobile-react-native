@@ -16,6 +16,7 @@ module.exports = {
           '@api': './app/api',
           '@utils': './app/utils',
           '@data': './app/data',
+          '@types': './app/types',
         },
       },
     ],
