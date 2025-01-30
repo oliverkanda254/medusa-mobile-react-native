@@ -1,12 +1,14 @@
 import Button from '@components/common/button';
 import Text from '@components/common/text';
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import Icon from '@react-native-vector-icons/ant-design';
 import {View} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
+  withSpring,
+  withSequence,
 } from 'react-native-reanimated';
 import {useColors} from '@styles/hooks';
 import {useCart} from '@data/cart-context';
@@ -83,6 +85,26 @@ const AnimatedCartButton = ({
 const ViewCart = ({quantity}: {quantity: number}) => {
   const colors = useColors();
   const navigation = useNavigation();
+  const scale = useSharedValue(1);
+  const prevQuantity = useRef(quantity);
+
+  useEffect(() => {
+    // Only animate when quantity increases
+    if (prevQuantity.current && quantity > prevQuantity.current) {
+      scale.value = withSequence(
+        withSpring(1.3, {damping: 8}),
+        withSpring(1, {damping: 8}),
+      );
+    }
+    prevQuantity.current = quantity;
+  }, [quantity, scale]);
+
+  const badgeAnimatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{scale: scale.value}],
+    };
+  });
+
   const navigateToCart = () => {
     navigation.navigate('Cart');
   };
@@ -96,11 +118,15 @@ const ViewCart = ({quantity}: {quantity: number}) => {
         <View className="flex-row gap-1 items-center">
           <View>
             <Icon name="shopping-cart" size={18} color={colors.content} />
-            <View className="absolute -top-[8] -right-[8]">
+            <Animated.View
+              className="absolute -top-[8] -right-[8]"
+              style={badgeAnimatedStyle}>
               <Badge quantity={quantity} />
-            </View>
+            </Animated.View>
           </View>
-          <Text className="ml-2 text-content font-content-bold" numberOfLines={1}>
+          <Text
+            className="ml-2 text-content font-content-bold"
+            numberOfLines={1}>
             View cart
           </Text>
         </View>
@@ -108,7 +134,5 @@ const ViewCart = ({quantity}: {quantity: number}) => {
     </Button>
   );
 };
-
-
 
 export default AnimatedCartButton;

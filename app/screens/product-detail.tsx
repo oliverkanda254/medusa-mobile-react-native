@@ -144,12 +144,12 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
           </View>
           <View className="mt-4">
             <Card>
-              <Features />
+              <ProductAttributes product={product} />
             </Card>
           </View>
           <View className="mt-4">
             <Card>
-              <ProductAttributes product={product} />
+              <Features />
             </Card>
           </View>
         </View>
