@@ -32,6 +32,7 @@ type CartContextType = {
   updateLineItem: (lineItemId: string, quantity: number) => Promise<void>;
   updateCart: (data: CartUpdateData) => Promise<HttpTypes.StoreCart>;
   linkCartToCustomer: () => Promise<void>;
+  setShippingMethod: (shippingMethodId: string) => Promise<HttpTypes.StoreCart>;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -151,6 +152,17 @@ export const CartProvider = ({children}: CartProviderProps) => {
     return updatedCart;
   };
 
+  const setShippingMethod = async (shippingMethodId: string) => {
+    const {cart: updatedCart} = await apiClient.store.cart.addShippingMethod(
+      cart?.id || '',
+      {
+        option_id: shippingMethodId,
+      },
+    );
+    setCart(updatedCart);
+    return updatedCart;
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -161,6 +173,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
         updateLineItem,
         updateCart,
         linkCartToCustomer,
+        setShippingMethod,
       }}>
       {children}
     </CartContext.Provider>

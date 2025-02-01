@@ -1,7 +1,10 @@
 import React, {useState} from 'react';
 import {View, ScrollView, Alert} from 'react-native';
 import {useCart} from '@data/cart-context';
-import {useNavigation} from '@react-navigation/native';
+import {
+  CommonActions,
+  useNavigation,
+} from '@react-navigation/native';
 import Button from '@components/common/button';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -162,15 +165,21 @@ const Checkout = () => {
       if (response.type === 'cart') {
         throw new Error(response.error?.message || 'Failed to complete order');
       }
-      Alert.alert('Success', 'Your order has been placed successfully!', [
-        {
-          text: 'OK',
-          onPress: async () => {
-            await resetCart();
-            navigation.navigate('Main');
-          },
-        },
-      ]);
+      await resetCart();
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'Main',
+            },
+            {
+              name: 'OrderDetail',
+              params: {orderId: response.order.id},
+            },
+          ],
+        }),
+      );
     }
   };
 

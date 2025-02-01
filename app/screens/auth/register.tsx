@@ -4,7 +4,7 @@ import Text from '@components/common/text';
 import Input from '@components/common/input';
 import Button from '@components/common/button';
 import {useCustomer} from '@data/customer-context';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import Navbar from '@components/common/navbar';
 import {useForm, Controller} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -49,9 +49,19 @@ const Register = () => {
         data.firstName,
         data.lastName,
       );
-      navigation.navigate('Main', {
-        screen: 'Profile',
-      });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'Main',
+              state: {
+                routes: [{name: 'Profile'}],
+              },
+            },
+          ],
+        }),
+      );
     } catch (err) {
       setFormError('root', {
         type: 'manual',

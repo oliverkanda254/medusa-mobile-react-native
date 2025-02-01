@@ -20,7 +20,7 @@ const Profile = () => {
   if (!customer) {
     return (
       <View className="flex-1 bg-background">
-        <Navbar title="Profile" />
+        <Navbar title="Profile" showBackButton={false} />
         <View className="flex-1 justify-center items-center p-4">
           <Text className="text-gray-600 mb-4 text-center">
             Sign in to view your profile and orders

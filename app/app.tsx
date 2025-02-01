@@ -17,7 +17,7 @@ import ProductDetail from '@screens/product-detail';
 import Cart from '@screens/cart';
 import Checkout from '@screens/checkout';
 import Profile from '@screens/profile/profile';
-import SignIn from '@screens/auth/sign-in';
+import SignIn from '@screens/auth/login';
 import Register from '@screens/auth/register';
 import Orders from '@screens/order/orders';
 import OrderDetail from '@screens/order/order-detail';

@@ -3,7 +3,7 @@ import {View, TouchableOpacity, Keyboard} from 'react-native';
 import Text from '@components/common/text';
 import Input from '@components/common/input';
 import {useCustomer} from '@data/customer-context';
-import {useNavigation} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import Navbar from '@components/common/navbar';
 import Button from '@components/common/button';
 import {useForm, Controller} from 'react-hook-form';
@@ -40,9 +40,19 @@ const SignIn = () => {
       Keyboard.dismiss();
       setLoading(true);
       await login(data.email, data.password);
-      navigation.navigate('Main', {
-        screen: 'Profile',
-      });
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [
+            {
+              name: 'Main',
+              state: {
+                routes: [{name: 'Profile'}],
+              },
+            },
+          ],
+        }),
+      );
     } catch (err) {
       setFormError('root', {
         type: 'manual',

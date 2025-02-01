@@ -6,6 +6,7 @@ import {useQuery} from '@tanstack/react-query';
 import {HttpTypes} from '@medusajs/types';
 import apiClient from '@api/client';
 import {convertToLocale} from '@utils/product-price';
+import { useCart } from '@data/cart-context';
 
 type ShippingStepProps = {
   cart: HttpTypes.StoreCart;
@@ -16,6 +17,7 @@ const ShippingStep = ({cart}: ShippingStepProps) => {
   const [calculatedPricesMap, setCalculatedPricesMap] = useState<
     Record<string, number>
   >({});
+  const {setShippingMethod} = useCart();
   const [selectedMethodId, setSelectedMethodId] = useState(
     cart?.shipping_methods?.[0]?.shipping_option_id || null,
   );
@@ -98,9 +100,7 @@ const ShippingStep = ({cart}: ShippingStepProps) => {
     setUpdatingOptionId(id);
 
     try {
-      await apiClient.store.cart.addShippingMethod(cart.id, {
-        option_id: id,
-      });
+      await setShippingMethod(id);
       setSelectedMethodId(id);
     } catch (err) {
       setError('Failed to update shipping method');

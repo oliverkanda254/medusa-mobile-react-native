@@ -13,7 +13,7 @@ const Header = () => {
   const navigation = useNavigation();
   const loggedIn = useLoggedIn();
   return (
-    <View className="flex-row h-14 justify-between items-center">
+    <View className="px-5 flex-row h-14 justify-between items-center">
       <RoundedButton
         onPress={() => {
           if (loggedIn) {
@@ -25,7 +25,7 @@ const Header = () => {
         <Icon name="user" size={18} color={colors.primary} />
       </RoundedButton>
       <Text type="display" className="text-content">
-        M-Store
+        MEDUSA MOBILE
       </Text>
       <CartButton />
     </View>

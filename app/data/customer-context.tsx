@@ -99,6 +99,8 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
         password,
       });
 
+      console.log('token', token);
+
       setToken(token);
 
       await apiClient.store.customer.create({
@@ -107,7 +109,7 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
         email,
       });
 
-      await Promise.all([refreshCustomer(), linkCartToCustomer()]);
+      await login(email, password);
     } catch (error) {
       console.log('Error', error);
       throw error;
