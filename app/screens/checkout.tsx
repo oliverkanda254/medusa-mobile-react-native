@@ -1,10 +1,7 @@
 import React, {useState} from 'react';
 import {View, ScrollView, Alert} from 'react-native';
 import {useCart} from '@data/cart-context';
-import {
-  CommonActions,
-  useNavigation,
-} from '@react-navigation/native';
+import {CommonActions, useNavigation} from '@react-navigation/native';
 import Button from '@components/common/button';
 import {useForm} from 'react-hook-form';
 import {zodResolver} from '@hookform/resolvers/zod';
@@ -113,6 +110,19 @@ const Checkout = () => {
   };
 
   const handleAddressSubmit = async () => {
+    const useSameBilling = form.getValues('use_same_billing');
+    const validateFields: (keyof CheckoutFormData)[] = [
+      'email',
+      'shipping_address',
+    ];
+    if (!useSameBilling) {
+      validateFields.push('billing_address');
+    }
+    const isValid = await form.trigger(validateFields);
+    if (!isValid) {
+      return;
+    }
+
     const {email, shipping_address, billing_address, use_same_billing} =
       form.getValues();
 

@@ -61,13 +61,15 @@ const AddressStep = ({form, isLoading, countries}: AddressStepProps) => {
       </View>
 
       {!useSameBilling && (
-        <AddressForm
-          title="Billing Address"
-          form={form}
-          type="billing"
-          isLoading={isLoading}
-          countries={countries}
-        />
+        <View className="mt-4">
+          <AddressForm
+            title="Billing Address"
+            form={form}
+            type="billing"
+            isLoading={isLoading}
+            countries={countries}
+          />
+        </View>
       )}
     </View>
   );
