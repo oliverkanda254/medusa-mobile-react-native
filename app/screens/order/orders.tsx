@@ -21,6 +21,7 @@ import {convertToLocale} from '@utils/product-price';
 import {useNavigation} from '@react-navigation/native';
 import {getFulfillmentStatus, type FulfillmentStatus} from '@utils/order';
 
+import { useColors } from '@styles/hooks';
 dayjs.extend(relativeTime);
 
 type Order = HttpTypes.StoreOrder;
@@ -36,6 +37,8 @@ const OrdersScreen = () => {
     queryFn: () => apiClient.store.order.list(),
     enabled: !!customer,
   });
+
+  const colors = useColors();
 
   const handleOrderPress = (orderId: string) => {
     navigation.navigate('OrderDetail', {orderId});
@@ -139,7 +142,11 @@ const OrdersScreen = () => {
         keyExtractor={item => item.id}
         contentContainerClassName="p-4"
         refreshControl={
-          <RefreshControl refreshing={isRefetching} onRefresh={refetch} />
+          <RefreshControl
+            colors={[colors.primary]}
+            refreshing={isRefetching}
+            onRefresh={refetch}
+          />
         }
         ListEmptyComponent={
           <Text className="text-center text-gray-500 mt-6">

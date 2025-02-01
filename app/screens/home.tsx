@@ -77,7 +77,7 @@ const ProductItem = ({product}: {product: HttpTypes.StoreProduct}) => {
   const navigation = useNavigation();
   const navigateToProduct = () => {
     // Navigate to product
-    navigation.navigate('ProductScreen', {productId: product.id});
+    navigation.navigate('ProductDetail', {productId: product.id});
   };
   return (
     <TouchableOpacity

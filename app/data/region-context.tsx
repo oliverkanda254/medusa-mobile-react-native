@@ -66,3 +66,8 @@ export const useRegion = () => {
 
   return context;
 };
+
+export const useCountries = () => {
+  const {region} = useRegion();
+  return region?.countries;
+};

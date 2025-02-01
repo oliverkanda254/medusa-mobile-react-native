@@ -12,11 +12,11 @@ export const themeColorSets: ThemeColorSets = {
       contentInverse: 'white',
     },
     dark: {
-      primary: '#8e6cef',
-      background: 'black',
-      backgroundSecondary: '#F0F3F8',
+      primary: '#ECDFCC',
+      background: '#181C14',
+      backgroundSecondary: '#3C3D37',
       content: 'white',
-      contentInverse: 'black',
+      contentInverse: 'white',
     },
   },
   vintage: {

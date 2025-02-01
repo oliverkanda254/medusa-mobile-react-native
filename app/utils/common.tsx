@@ -1,5 +1,10 @@
+import { BaseRegionCountry } from '@medusajs/types/dist/http/region/common';
+
 const utils = {
-  areEqualObjects: function (o1?: Record<string, any>, o2?: Record<string, any>) {
+  areEqualObjects: function (
+    o1?: Record<string, any>,
+    o2?: Record<string, any>,
+  ) {
     if (!o1 || !o2) {
       return false;
     }
@@ -18,6 +23,16 @@ const utils = {
       }
     }
     return true;
+  },
+  getCountryName: (
+    countryCode?: string,
+    countries?: BaseRegionCountry[],
+  ) => {
+    if (!countryCode || !countries) {
+      return '';
+    }
+    const country = countries.find(c => c.iso_2 === countryCode);
+    return country?.display_name || countryCode.toUpperCase();
   },
 };
 

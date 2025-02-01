@@ -24,7 +24,9 @@ const Header = () => {
         }}>
         <Icon name="user" size={18} color={colors.primary} />
       </RoundedButton>
-      <Text type="display">Medusa Mobile</Text>
+      <Text type="display" className="text-content">
+        Medusa Mobile
+      </Text>
       <CartButton />
     </View>
   );

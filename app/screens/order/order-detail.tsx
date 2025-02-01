@@ -10,6 +10,8 @@ import dayjs from 'dayjs';
 import Loader from '@components/common/loader';
 import ErrorUI from '@components/common/error-ui';
 import {getFulfillmentStatus, type FulfillmentStatus} from '@utils/order';
+import {useCountries} from '@data/region-context';
+import utils from '@utils/common';
 
 type OrderDetailProps = {
   route: {
@@ -33,6 +35,8 @@ const OrderDetail = ({route}: OrderDetailProps) => {
       return orderData;
     },
   });
+
+  const countries = useCountries();
 
   if (isLoading) {
     return (
@@ -152,7 +156,10 @@ const OrderDetail = ({route}: OrderDetailProps) => {
                   {order.shipping_address.postal_code}
                 </Text>
                 <Text>
-                  {order.shipping_address.country_code?.toUpperCase()}
+                  {utils.getCountryName(
+                    order.shipping_address.country_code,
+                    countries,
+                  )}
                 </Text>
               </View>
               <View className="gap-1">

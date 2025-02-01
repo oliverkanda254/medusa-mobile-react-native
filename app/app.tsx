@@ -9,17 +9,20 @@ import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import Splash from '@screens/splash';
 import Home from '@screens/home';
-import ProductScreen from '@screens/product-detail';
+import ProductDetail from '@screens/product-detail';
 import Cart from '@screens/cart';
 import Checkout from '@screens/checkout';
-import Profile from '@screens/profile';
+import Profile from '@screens/profile/profile';
 import SignIn from '@screens/auth/sign-in';
 import Register from '@screens/auth/register';
-import Orders from '@screens/orders';
-import OrderDetail from '@screens/order-detail';
+import Orders from '@screens/order/orders';
+import OrderDetail from '@screens/order/order-detail';
+import ProfileDetail from '@screens/profile/profile-detail';
 import {CartProvider} from '@data/cart-context';
 import {RegionProvider} from '@data/region-context';
 import {CustomerProvider} from '@data/customer-context';
+import AddressForm from '@screens/address/address-form';
+import AddressList from '@screens/address/address-list';
 
 import '@styles/global.css';
 
@@ -58,7 +61,7 @@ const RootStack = createNativeStackNavigator({
       },
     },
     Home,
-    ProductScreen,
+    ProductDetail,
     Cart,
     Checkout,
     Profile,
@@ -66,6 +69,9 @@ const RootStack = createNativeStackNavigator({
     Register,
     Orders,
     OrderDetail,
+    ProfileDetail,
+    AddressList,
+    AddressForm,
   },
 });
 

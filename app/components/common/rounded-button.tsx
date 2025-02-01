@@ -12,7 +12,7 @@ const RoundedButton = ({
   return (
     <TouchableOpacity
       onPress={onPress}
-      className="bg-background h-12 w-12 rounded-full items-center justify-center elevation-sm">
+      className="bg-content-inverse h-12 w-12 rounded-full items-center justify-center elevation-sm">
       {children}
     </TouchableOpacity>
   );

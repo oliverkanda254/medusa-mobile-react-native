@@ -48,8 +48,8 @@ const Profile = () => {
   const options: ProfileOptionType[] = [
     {
       icon: 'user',
-      label: 'Profile',
-      onPress: () => {},
+      label: 'Profile Information',
+      onPress: () => navigation.navigate('ProfileDetail'),
     },
     {
       icon: 'container',
@@ -59,7 +59,7 @@ const Profile = () => {
     {
       icon: 'environment',
       label: 'Shipping Addresses',
-      onPress: () => {},
+      onPress: () => navigation.navigate('AddressList'),
     },
     {
       icon: 'logout',
@@ -82,10 +82,10 @@ const Profile = () => {
             <View className="w-24 h-24 rounded-full bg-gray-200 mb-4 items-center justify-center">
               <Icon name="user" size={40} color="#9CA3AF" />
             </View>
-            <Text type="display" className="mb-1">
+            <Text type="display" className="text-content mb-1">
               {customer.first_name} {customer.last_name}
             </Text>
-            <Text type="content" className="text-gray-500">
+            <Text type="content" className=" text-content opacity-50">
               {customer.email}
             </Text>
           </View>

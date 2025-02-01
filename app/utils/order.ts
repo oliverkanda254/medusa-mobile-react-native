@@ -21,4 +21,4 @@ export const getFulfillmentStatus = (status: FulfillmentStatus) => {
   };
 
   return statusMap[status] || 'Not Fulfilled';
-}; 
+};

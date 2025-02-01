@@ -47,7 +47,7 @@ const EmptyCart = () => {
   return (
     <View className="px-4 mt-20">
       <Text className="text-lg text-center">
-        You don't have anything in your cart. Let's change that, use the link
+        You don't have anything in your cart.{'\n'}Use the link below to start
         below to start browsing our products.
       </Text>
     </View>
