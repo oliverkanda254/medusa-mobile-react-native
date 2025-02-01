@@ -12,8 +12,7 @@ import {formatImageUrl} from '@utils/image-url';
 import {useNavigation} from '@react-navigation/native';
 import Loader from '@components/common/loader';
 import ErrorUI from '@components/common/error-ui';
-import Badge from '@components/common/badge';
-import {useCartQuantity} from '@data/hooks';
+import Header from '@components/home/header';
 
 const Home = () => {
   const {name, setThemeName} = useTheme();
@@ -27,9 +26,6 @@ const Home = () => {
       <View className="mb-4 px-5">
         <Header />
       </View>
-      <View className="mb-4 px-5">
-        <Text>Welcome to Medusa Native!</Text>
-      </View>
       <View className="flex-1 mt-4">
         <ProductsList />
       </View>
@@ -41,42 +37,6 @@ const Home = () => {
         </TouchableOpacity>
       </View>
     </View>
-  );
-};
-
-const Header = () => {
-  const colors = useColors();
-  return (
-    <View className="flex-row h-14 justify-between items-center">
-      <TouchableOpacity className="w-12 h-12 justify-center items-center rounded-full bg-background elevation-sm">
-        <Icon name="user" size={18} color={colors.primary} />
-      </TouchableOpacity>
-      <Text type="display">MN</Text>
-      <CartButton />
-    </View>
-  );
-};
-
-const CartButton = () => {
-  const colors = useColors();
-  const navigation = useNavigation();
-  const itemCount = useCartQuantity();
-  const navigateToCart = () => {
-    navigation.navigate('Cart');
-  };
-  return (
-    <TouchableOpacity
-      onPress={navigateToCart}
-      className="w-12 h-12 justify-center items-center bg-primary rounded-full elevation-sm">
-      <View>
-        <Icon name="shopping-cart" size={18} color={colors.contentInverse} />
-        {itemCount > 0 && (
-          <View className="absolute -top-2 -right-3">
-            <Badge variant="secondary" quantity={itemCount} />
-          </View>
-        )}
-      </View>
-    </TouchableOpacity>
   );
 };
 

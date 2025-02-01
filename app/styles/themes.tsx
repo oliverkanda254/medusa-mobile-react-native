@@ -23,7 +23,7 @@ export const themeColorSets: ThemeColorSets = {
     light: {
       primary: '#C96868',
       background: '#FFF4EA',
-      backgroundSecondary: '#F0F3F8',
+      backgroundSecondary: '#FFFFFF',
       content: 'black',
       contentInverse: 'white',
     },

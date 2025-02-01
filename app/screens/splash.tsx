@@ -22,7 +22,7 @@ const Splash = () => {
         <Text
           type="display"
           className="text-content-inverse text-5xl text-center">
-          MEDUSA{'\n'}NATIVE
+          MEDUSA{'\n'}MOBILE
         </Text>
       </View>
     </>

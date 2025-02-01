@@ -31,6 +31,7 @@ type CartContextType = {
   addToCart: (variantId: string, quantity: number) => Promise<void>;
   updateLineItem: (lineItemId: string, quantity: number) => Promise<void>;
   updateCart: (data: CartUpdateData) => Promise<HttpTypes.StoreCart>;
+  linkCartToCustomer: () => Promise<void>;
 };
 
 const CartContext = createContext<CartContextType | null>(null);
@@ -127,6 +128,13 @@ export const CartProvider = ({children}: CartProviderProps) => {
     }
   };
 
+  const linkCartToCustomer = async () => {
+    const {cart: dataCart} = await apiClient.store.cart.transferCart(
+      cart?.id || '',
+    );
+    setCart(dataCart);
+  };
+
   const updateCart = async (data: CartUpdateData) => {
     if (!cart?.id) {
       throw new Error('No cart found');
@@ -152,6 +160,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
         addToCart,
         updateLineItem,
         updateCart,
+        linkCartToCustomer,
       }}>
       {children}
     </CartContext.Provider>

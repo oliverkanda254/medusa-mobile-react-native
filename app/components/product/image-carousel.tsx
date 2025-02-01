@@ -37,7 +37,7 @@ const ImageCarousel = ({data}: CarouselProps) => {
   };
 
   return (
-    <View>
+    <View className="bg-background-secondary">
       <Carousel
         ref={ref}
         width={width}

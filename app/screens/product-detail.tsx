@@ -81,6 +81,10 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
     });
   }, [product.variants, options]);
 
+  const hasSelectedAllOptions = useMemo(() => {
+    return product.options?.every(option => options[option.id]);
+  }, [product.options, options]);
+
   const inStock = useMemo(() => {
     // If we don't manage inventory, we can always add to cart
     if (selectedVariant && !selectedVariant.manage_inventory) {
@@ -160,6 +164,7 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
           selectedVariantId={selectedVariant?.id}
           disabled={!isValidVariant || !inStock}
           inStock={inStock}
+          hasSelectedAllOptions={hasSelectedAllOptions}
         />
       </View>
     </View>
@@ -190,7 +195,6 @@ type SelectVariantProps = {
 const SelectVariant = ({
   product,
   setOptionValue,
-  // isAdding,
   options,
 }: SelectVariantProps) => {
   return (
@@ -266,7 +270,7 @@ const Features = () => {
 
 const FeatureWrapper = ({children}: PropsWithChildren<{}>) => {
   return (
-    <View className="flex-1 bg-slate-100 gap-2 rounded-lg p-2 justify-center items-center">
+    <View className="flex-1 bg-background-secondary gap-2 rounded-lg p-2 justify-center items-center">
       {children}
     </View>
   );

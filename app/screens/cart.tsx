@@ -32,7 +32,7 @@ const Cart = () => {
           )}
         </View>
       </ScrollView>
-      <View className="p-4">
+      <View className="p-4 bg-background-secondary">
         {!isEmptyCart ? (
           <Button title="Checkout" onPress={goToCheckout} />
         ) : (

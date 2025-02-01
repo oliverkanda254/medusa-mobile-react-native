@@ -238,7 +238,7 @@ const Checkout = () => {
           {renderStep()}
         </ScrollView>
       </View>
-      <View className="p-4 bg-background border-t border-gray-200">
+      <View className="p-4 bg-background-secondary border-t border-gray-200">
         <Button
           variant="primary"
           title={getCtaText()}

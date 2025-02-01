@@ -1,6 +1,8 @@
 import {useCart} from './cart-context';
 import {useRegion} from './region-context';
 import {CheckoutStep} from '../types/checkout';
+import {useCustomer} from './customer-context';
+
 
 export const useProductQuantity = (productId: string) => {
   const {cart} = useCart();
@@ -79,4 +81,9 @@ export const useActivePaymentSession = () => {
   return cart?.payment_collection?.payment_sessions?.find(
     session => session.status === 'pending',
   );
+};
+
+export const useLoggedIn = () => {
+  const {customer} = useCustomer();
+  return customer !== undefined;
 };

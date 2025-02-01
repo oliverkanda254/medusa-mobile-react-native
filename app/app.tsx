@@ -12,8 +12,14 @@ import Home from '@screens/home';
 import ProductScreen from '@screens/product-detail';
 import Cart from '@screens/cart';
 import Checkout from '@screens/checkout';
+import Profile from '@screens/profile';
+import SignIn from '@screens/auth/sign-in';
+import Register from '@screens/auth/register';
+import Orders from '@screens/orders';
+import OrderDetail from '@screens/order-detail';
 import {CartProvider} from '@data/cart-context';
 import {RegionProvider} from '@data/region-context';
+import {CustomerProvider} from '@data/customer-context';
 
 import '@styles/global.css';
 
@@ -26,11 +32,13 @@ export default function App() {
     <ThemeProvider name="default">
       <RegionProvider>
         <CartProvider>
-          <QueryClientProvider client={queryClient}>
-            <GestureHandlerRootView>
-              <Navigation />
-            </GestureHandlerRootView>
-          </QueryClientProvider>
+          <CustomerProvider>
+            <QueryClientProvider client={queryClient}>
+              <GestureHandlerRootView>
+                <Navigation />
+              </GestureHandlerRootView>
+            </QueryClientProvider>
+          </CustomerProvider>
         </CartProvider>
       </RegionProvider>
     </ThemeProvider>
@@ -53,6 +61,11 @@ const RootStack = createNativeStackNavigator({
     ProductScreen,
     Cart,
     Checkout,
+    Profile,
+    SignIn,
+    Register,
+    Orders,
+    OrderDetail,
   },
 });
 

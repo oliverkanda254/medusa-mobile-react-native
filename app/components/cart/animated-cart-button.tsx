@@ -21,6 +21,7 @@ type AnimatedCartButtonProps = {
   selectedVariantId?: string;
   disabled?: boolean;
   inStock?: boolean;
+  hasSelectedAllOptions?: boolean;
 };
 
 const AnimatedCartButton = ({
@@ -28,6 +29,7 @@ const AnimatedCartButton = ({
   selectedVariantId,
   disabled = false,
   inStock,
+  hasSelectedAllOptions = false,
 }: AnimatedCartButtonProps) => {
   const {addToCart} = useCart();
   const [adding, setAdding] = React.useState(false);
@@ -72,7 +74,9 @@ const AnimatedCartButton = ({
       </Animated.View>
       <View className="flex-1">
         <Button
-          title={selectedVariantId && !inStock ? 'Out of stock' : 'Add to cart'}
+          title={
+            hasSelectedAllOptions && !inStock ? 'Out of stock' : 'Add to cart'
+          }
           onPress={addToCartHandler}
           disabled={disabled}
           loading={adding}

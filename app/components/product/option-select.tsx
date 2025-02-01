@@ -5,7 +5,7 @@ import {HttpTypes} from '@medusajs/types';
 import {tv} from 'tailwind-variants';
 
 const optionButton = tv({
-  base: 'border border-gray-200 bg-gray-50 h-10 rounded-lg py-2 px-6 flex-1 justify-center items-center',
+  base: 'border border-gray-200 bg-background-secondary h-10 rounded-lg py-2 px-6 flex-1 justify-center items-center',
   variants: {
     selected: {
       true: 'border-primary',
