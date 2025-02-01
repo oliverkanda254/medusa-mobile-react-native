@@ -167,7 +167,7 @@ const Checkout = () => {
           text: 'OK',
           onPress: async () => {
             await resetCart();
-            navigation.navigate('Home');
+            navigation.navigate('Main');
           },
         },
       ]);

@@ -2,7 +2,7 @@ import React from 'react';
 import RoundedButton from '@components/common/rounded-button';
 import {useCartQuantity, useLoggedIn} from '@data/hooks';
 import Icon from '@react-native-vector-icons/ant-design';
-import {useNavigation} from '@react-navigation/native';
+import {TabActions, useNavigation} from '@react-navigation/native';
 import {useColors} from '@styles/hooks';
 import {TouchableOpacity, View} from 'react-native';
 import Text from '@components/common/text';
@@ -17,7 +17,7 @@ const Header = () => {
       <RoundedButton
         onPress={() => {
           if (loggedIn) {
-            navigation.navigate('Profile');
+            navigation.dispatch(TabActions.jumpTo('Profile'));
           } else {
             navigation.navigate('SignIn');
           }
@@ -25,7 +25,7 @@ const Header = () => {
         <Icon name="user" size={18} color={colors.primary} />
       </RoundedButton>
       <Text type="display" className="text-content">
-        Medusa Mobile
+        M-Store
       </Text>
       <CartButton />
     </View>

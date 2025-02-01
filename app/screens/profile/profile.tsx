@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StatusBar, ScrollView, TouchableOpacity} from 'react-native';
+import {View, ScrollView, TouchableOpacity} from 'react-native';
 import Text from '@components/common/text';
 import Icon from '@react-native-vector-icons/ant-design';
 import {useColors} from '@styles/hooks';
@@ -14,7 +14,6 @@ type ProfileOptionType = {
 };
 
 const Profile = () => {
-  const colors = useColors();
   const navigation = useNavigation();
   const {customer, logout} = useCustomer();
 
@@ -39,7 +38,7 @@ const Profile = () => {
   const handleLogout = async () => {
     try {
       await logout();
-      navigation.navigate('Home');
+      navigation.navigate('Main');
     } catch (error) {
       console.log('Logout error:', error);
     }
@@ -70,10 +69,8 @@ const Profile = () => {
 
   return (
     <View className="bg-background flex-1">
-      <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
-
       {/* Header */}
-      <Navbar title="Profile" />
+      <Navbar title="Profile" showBackButton={false} />
 
       <ScrollView className="flex-1">
         {/* Profile Info Section */}

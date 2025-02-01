@@ -23,7 +23,7 @@ const Home = () => {
   return (
     <View className="bg-background flex-1">
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
-      <View className="mb-4 px-5">
+      <View className="px-5">
         <Header />
       </View>
       <View className="flex-1 mt-4">

@@ -4,11 +4,15 @@ import {
   StaticParamList,
 } from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import ThemeProvider from '@styles/theme-provider';
 import {QueryClient, QueryClientProvider} from '@tanstack/react-query';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import TabBar from '@components/common/tab-bar';
 import Splash from '@screens/splash';
 import Home from '@screens/home';
+import Categories from '@screens/categories';
+import Collections from '@screens/collections';
 import ProductDetail from '@screens/product-detail';
 import Cart from '@screens/cart';
 import Checkout from '@screens/checkout';
@@ -48,6 +52,19 @@ export default function App() {
   );
 }
 
+const HomeTabs = createBottomTabNavigator({
+  tabBar: props => <TabBar {...props} />,
+  screens: {
+    Home: Home,
+    Categories: Categories,
+    Collections: Collections,
+    Profile: Profile,
+  },
+  screenOptions: {
+    headerShown: false,
+  },
+});
+
 const RootStack = createNativeStackNavigator({
   initialRouteName: 'Splash',
   screenOptions: {
@@ -60,11 +77,10 @@ const RootStack = createNativeStackNavigator({
         headerShown: false,
       },
     },
-    Home,
+    Main: HomeTabs,
     ProductDetail,
     Cart,
     Checkout,
-    Profile,
     SignIn,
     Register,
     Orders,

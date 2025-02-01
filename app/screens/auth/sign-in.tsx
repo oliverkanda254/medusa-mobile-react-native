@@ -40,9 +40,8 @@ const SignIn = () => {
       Keyboard.dismiss();
       setLoading(true);
       await login(data.email, data.password);
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'Home'}, {name: 'Profile'}],
+      navigation.navigate('Main', {
+        screen: 'Profile',
       });
     } catch (err) {
       setFormError('root', {

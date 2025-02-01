@@ -49,9 +49,8 @@ const Register = () => {
         data.firstName,
         data.lastName,
       );
-      navigation.reset({
-        index: 0,
-        routes: [{name: 'Home'}, {name: 'Profile'}],
+      navigation.navigate('Main', {
+        screen: 'Profile',
       });
     } catch (err) {
       setFormError('root', {

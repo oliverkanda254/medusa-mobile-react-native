@@ -18,7 +18,7 @@ const Cart = () => {
   };
 
   const goHome = () => {
-    navigation.navigate('Home');
+    navigation.navigate('Main');
   };
   return (
     <View className="flex-1">

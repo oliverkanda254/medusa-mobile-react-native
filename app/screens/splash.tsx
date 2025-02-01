@@ -8,7 +8,7 @@ const Splash = () => {
   useEffect(() => {
     setTimeout(() => {
       // Temporary navigation to the home screen
-      navigation.dispatch(StackActions.replace('Home'));
+      navigation.dispatch(StackActions.replace('Main'));
     }, 500);
   }, [navigation]);
   return (
