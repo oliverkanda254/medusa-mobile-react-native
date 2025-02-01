@@ -1,0 +1,87 @@
+import React from 'react';
+import {
+  View,
+  FlatList,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
+import {useQuery} from '@tanstack/react-query';
+import {useNavigation} from '@react-navigation/native';
+import Navbar from '@components/common/navbar';
+import Text from '@components/common/text';
+import {useColors} from '@styles/hooks';
+import apiClient from '@api/client';
+import Icon from '@react-native-vector-icons/ant-design';
+import {StoreProductCategory} from '@medusajs/types';
+
+export default function Categories() {
+  const colors = useColors();
+  const navigation = useNavigation();
+  const {data, isLoading, error} = useQuery({
+    queryKey: ['categories'],
+    queryFn: () => apiClient.store.category.list(),
+  });
+
+  if (isLoading) {
+    return (
+      <View className="flex-1 bg-background">
+        <Navbar title="Categories" showBackButton={false} />
+        <View className="flex-1 items-center justify-center">
+          <ActivityIndicator size="large" color={colors.primary} />
+        </View>
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View className="flex-1 bg-background">
+        <Navbar title="Categories" showBackButton={false} />
+        <View className="flex-1 items-center justify-center p-4">
+          <Text className="text-base text-content text-center">
+            Something went wrong while loading categories.
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  const renderItem = ({item}: {item: StoreProductCategory}) => (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate('CategoryDetail', {categoryId: item.id});
+      }}
+      className="flex-row items-center justify-between p-4 border-b border-gray-200">
+      <View className="flex-1">
+        <Text className="text-base font-medium text-content">{item.name}</Text>
+        {item.description && (
+          <Text className="text-sm text-content-light mt-1" numberOfLines={2}>
+            {item.description}
+          </Text>
+        )}
+      </View>
+      <Icon name="right" size={18} color={colors.primary} />
+    </TouchableOpacity>
+  );
+
+  return (
+    <View className="flex-1 bg-background">
+      <Navbar title="Categories" showBackButton={false} />
+      <View className="border-t border-gray-200">
+        <FlatList
+          data={data?.product_categories}
+          renderItem={renderItem}
+          keyExtractor={item => item.id}
+          contentContainerClassName="pb-4"
+          ListEmptyComponent={
+            <View className="flex-1 items-center justify-center p-4">
+              <Text className="text-base text-content text-center">
+                No categories found
+              </Text>
+            </View>
+          }
+        />
+      </View>
+    </View>
+  );
+}

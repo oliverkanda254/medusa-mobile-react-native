@@ -12,6 +12,8 @@ import ErrorUI from '@components/common/error-ui';
 import {getFulfillmentStatus, type FulfillmentStatus} from '@utils/order';
 import {useCountries} from '@data/region-context';
 import utils from '@utils/common';
+import Button from '@components/common/button';
+import {useNavigation} from '@react-navigation/native';
 
 type OrderDetailProps = {
   route: {
@@ -23,10 +25,11 @@ type OrderDetailProps = {
 
 const OrderDetail = ({route}: OrderDetailProps) => {
   const {orderId} = route.params;
+  const navigation = useNavigation();
 
   const {
     data: order,
-    isLoading,
+    isPending,
     error,
   } = useQuery({
     queryKey: ['order', orderId],
@@ -38,22 +41,12 @@ const OrderDetail = ({route}: OrderDetailProps) => {
 
   const countries = useCountries();
 
-  if (isLoading) {
-    return (
-      <View className="flex-1 bg-background">
-        <Navbar title="Order Details" />
-        <Loader />
-      </View>
-    );
+  if (isPending) {
+    return <Loader />;
   }
 
   if (error) {
-    return (
-      <View className="flex-1 bg-background">
-        <Navbar title="Order Details" />
-        <ErrorUI />
-      </View>
-    );
+    return <ErrorUI />;
   }
 
   if (!order) {
@@ -242,6 +235,14 @@ const OrderDetail = ({route}: OrderDetailProps) => {
           </View>
         </View>
       </ScrollView>
+      <View className="p-4 bg-background-secondary">
+        <Button
+          title="Continue Shopping"
+          onPress={() => {
+            navigation.navigate('Main');
+          }}
+        />
+      </View>
     </View>
   );
 };

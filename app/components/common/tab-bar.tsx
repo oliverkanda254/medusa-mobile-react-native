@@ -50,7 +50,7 @@ function TabBar({state, descriptors, navigation}: BottomTabBarProps) {
                 color={isFocused ? colors.primary : colors.content}
               />
               <Text
-                className={`text-sm ${isFocused ? 'text-primary' : 'text-content'}`}>
+                className={`text-sm ${isFocused ? 'text-primary font-content-bold' : 'text-content'}`}>
                 {label}
               </Text>
             </View>

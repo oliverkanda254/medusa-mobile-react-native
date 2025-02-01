@@ -11,8 +11,10 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import TabBar from '@components/common/tab-bar';
 import Splash from '@screens/splash';
 import Home from '@screens/home';
-import Categories from '@screens/categories';
-import Collections from '@screens/collections';
+import Categories from '@screens/category/categories';
+import CategoryDetail from '@screens/category/category-detail';
+import Collections from '@screens/collection/collections';
+import CollectionDetail from '@screens/collection/collection-detail';
 import ProductDetail from '@screens/product-detail';
 import Cart from '@screens/cart';
 import Checkout from '@screens/checkout';
@@ -79,6 +81,8 @@ const RootStack = createNativeStackNavigator({
     },
     Main: HomeTabs,
     ProductDetail,
+    CategoryDetail,
+    CollectionDetail,
     Cart,
     Checkout,
     SignIn,

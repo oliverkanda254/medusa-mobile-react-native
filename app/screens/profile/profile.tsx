@@ -22,7 +22,7 @@ const Profile = () => {
       <View className="flex-1 bg-background">
         <Navbar title="Profile" showBackButton={false} />
         <View className="flex-1 justify-center items-center p-4">
-          <Text className="text-gray-600 mb-4 text-center">
+          <Text className="text-lg text-content mb-4 text-center">
             Sign in to view your profile and orders
           </Text>
           <TouchableOpacity
