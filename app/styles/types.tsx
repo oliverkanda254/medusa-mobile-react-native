@@ -20,6 +20,6 @@ export type Colors = {
   primary: string;
   background: string;
   content: string;
-  contentInverse: string;
+  contentSecondary: string;
   backgroundSecondary: string;
 };

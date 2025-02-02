@@ -25,7 +25,7 @@ const WishlistButton = ({
       <MaterialIcon
         name={isWishlisted ? 'heart' : 'heart-outline'}
         size={14}
-        color={iconColor ?? colors.contentInverse}
+        color={iconColor ?? colors.contentSecondary}
       />
     </TouchableOpacity>
   );

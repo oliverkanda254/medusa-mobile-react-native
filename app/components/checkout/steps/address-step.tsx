@@ -45,7 +45,7 @@ const AddressStep = ({form, isLoading, countries}: AddressStepProps) => {
         countries={countries}
       />
 
-      <View className="flex-row items-center space-x-2">
+      <View className="flex-row items-center gap-2">
         <Controller
           control={form.control}
           name="use_same_billing"

@@ -20,7 +20,7 @@ const badgeText = tv({
   base: 'text-xs font-content-bold',
   variants: {
     variant: {
-      primary: 'text-content-inverse',
+      primary: 'text-content-secondary',
       secondary: 'text-content',
     },
   },

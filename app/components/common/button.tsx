@@ -30,7 +30,7 @@ const buttonText = tv({
       false: '',
     },
     variant: {
-      primary: 'text-content-inverse',
+      primary: 'text-content-secondary',
       secondary: 'text-content',
     },
   },

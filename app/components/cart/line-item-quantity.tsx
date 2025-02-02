@@ -3,7 +3,6 @@ import {useColors} from '@styles/hooks';
 import {ActivityIndicator, TouchableOpacity, View} from 'react-native';
 import Icon from '@react-native-vector-icons/ant-design';
 import Text from '@components/common/text';
-import twColors from 'tailwindcss/colors';
 import {useCart} from '@data/cart-context';
 
 type LineItemQuantityProps = {
@@ -65,8 +64,8 @@ const LineItemQuantity = ({
       {updating ? (
         <ActivityIndicator size="small" color={colors.primary} />
       ) : mode === 'cart' ? (
-        <TouchableOpacity onPress={deleteLineItem}>
-          <Icon name="delete" size={16} color={twColors.gray[600]} />
+        <TouchableOpacity onPress={deleteLineItem} className="opacity-75">
+          <Icon name="delete" size={16} color={colors.content} />
         </TouchableOpacity>
       ) : null}
     </View>

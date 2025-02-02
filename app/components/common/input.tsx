@@ -36,7 +36,7 @@ const Input = React.forwardRef<TextInput, InputProps>(
         )}
         <TextInput
           ref={ref}
-          className={`border rounded-lg p-4 text-base ${
+          className={`border rounded-lg p-4 text-base text-content ${
             error
               ? 'border-red-500'
               : isFocused

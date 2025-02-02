@@ -45,7 +45,7 @@ const CartButton = () => {
       onPress={navigateToCart}
       className="w-12 h-12 justify-center items-center bg-primary rounded-full elevation-sm">
       <View>
-        <Icon name="shopping-cart" size={18} color={colors.contentInverse} />
+        <Icon name="shopping-cart" size={18} color={colors.contentSecondary} />
         {itemCount > 0 && (
           <View className="absolute -top-2 -right-3">
             <Badge variant="secondary" quantity={itemCount} />

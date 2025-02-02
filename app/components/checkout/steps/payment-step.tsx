@@ -55,12 +55,18 @@ const PaymentStep = ({
 
     switch (selectedProviderId) {
       case 'pp_stripe_stripe':
-        return <Text>Stripe payment UI coming soon!</Text>;
+        return (
+          <Text className="text-content">Stripe payment UI coming soon!</Text>
+        );
       case 'pp_system_default':
-        return <Text>No additional actions required for manual payment.</Text>;
+        return (
+          <Text className="text-content">
+            No additional actions required for manual payment.
+          </Text>
+        );
       default:
         return (
-          <Text>
+          <Text className="text-content">
             Payment provider{' '}
             {PAYMENT_PROVIDER_DETAILS_MAP[selectedProviderId]?.name ||
               selectedProviderId}{' '}
@@ -115,7 +121,7 @@ const PaymentStep = ({
         })}
       </View>
       {selectedProviderId && (
-        <View className="mt-6 p-4 bg-gray-50 rounded-lg">{getPaymentUI()}</View>
+        <View className="mt-6 p-4 bg-background-secondary rounded-lg">{getPaymentUI()}</View>
       )}
     </View>
   );

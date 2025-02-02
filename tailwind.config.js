@@ -10,7 +10,7 @@ module.exports = {
         background: 'var(--color-background)',
         'background-secondary': 'var(--color-background-secondary)',
         content: 'var(--color-content)',
-        'content-inverse': 'var(--color-content-inverse)',
+        'content-secondary': 'var(--color-content-secondary)',
       },
       fontFamily: {
         display: 'Audiowide-Regular',

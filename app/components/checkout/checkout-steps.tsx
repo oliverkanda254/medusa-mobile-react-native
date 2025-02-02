@@ -52,7 +52,7 @@ const CheckoutSteps = ({currentStep, onStepPress}: CheckoutStepsProps) => {
                   name={step.icon}
                   size={16}
                   color={
-                    isActive || isPast ? colors.contentInverse : colors.content
+                    isActive || isPast ? colors.contentSecondary : colors.content
                   }
                 />
               </View>

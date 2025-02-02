@@ -294,8 +294,8 @@ const RatingSummary = () => {
   return (
     <View className="flex-row items-center gap-1">
       <View className="flex-row items-center px-1 py-[1] bg-green-500 rounded-md">
-        <Icon name="star" size={16} color={colors.contentInverse} />
-        <Text className="text-base text-content-inverse opacity-80 ml-1">
+        <Icon name="star" size={16} color={colors.contentSecondary} />
+        <Text className="text-base text-content-secondary opacity-80 ml-1">
           4.5
         </Text>
       </View>

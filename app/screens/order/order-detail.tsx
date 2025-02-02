@@ -68,15 +68,15 @@ const OrderDetail = ({route}: OrderDetailProps) => {
             <Text className="text-xl font-bold mb-1">
               Order #{order.display_id}
             </Text>
-            <Text className="text-gray-500">
+            <Text className="text-content opacity-60">
               Placed {dayjs(order.created_at).format('MMMM D, YYYY h:mm A')}
             </Text>
           </View>
 
           {/* Order Status */}
           <View className="mb-6">
-            <Text className="font-semibold mb-2">Status</Text>
-            <Text className="text-gray-700">
+            <Text className="font-semibold mb-2 opacity-60">Status</Text>
+            <Text className="text-content">
               {getFulfillmentStatus(
                 order.fulfillment_status as FulfillmentStatus,
               )}
@@ -134,7 +134,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
           {order.shipping_address && (
             <View className="flex-row justify-between mb-6">
               <View className="gap-1">
-                <Text className="text-gray-500 mb-1">Shipping Address</Text>
+                <Text className="opacity-60 mb-1">Shipping Address</Text>
                 <Text>
                   {order.shipping_address.first_name}{' '}
                   {order.shipping_address.last_name}
@@ -156,7 +156,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
                 </Text>
               </View>
               <View className="gap-1">
-                <Text className="text-gray-500 mb-1">Contact</Text>
+                <Text className="opacity-60 mb-1">Contact</Text>
                 <Text>{order.email}</Text>
                 {order.shipping_address?.phone && (
                   <Text>{order.shipping_address.phone}</Text>
@@ -167,7 +167,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
 
           <View className="mb-6">
             <View>
-              <Text className="text-gray-500 mb-1">Method</Text>
+              <Text className="opacity-60 mb-1">Method</Text>
               <Text>
                 Standard Shipping (
                 {convertToLocale({
@@ -183,7 +183,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
           <View className="mb-6">
             <Text className="text-lg mb-2">Order Summary</Text>
             <View className="flex-row justify-between mb-2">
-              <Text className="text-gray-500">Subtotal</Text>
+              <Text className="opacity-60">Subtotal</Text>
               <Text>
                 {convertToLocale({
                   amount: order.subtotal,
@@ -192,7 +192,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
               </Text>
             </View>
             <View className="flex-row justify-between mb-2">
-              <Text className="text-gray-500">Shipping</Text>
+              <Text className="opacity-60">Shipping</Text>
               <Text>
                 {convertToLocale({
                   amount: order.shipping_total,
@@ -202,7 +202,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
             </View>
             {order.discount_total > 0 && (
               <View className="flex-row justify-between mb-2">
-                <Text className="text-gray-500">Discount</Text>
+                <Text className="opacity-60">Discount</Text>
                 <Text className="text-green-600">
                   -
                   {convertToLocale({
@@ -213,7 +213,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
               </View>
             )}
             <View className="flex-row justify-between mb-2">
-              <Text className="text-gray-500">Taxes</Text>
+              <Text className="opacity-60">Taxes</Text>
               <Text>
                 {order.tax_total
                   ? convertToLocale({

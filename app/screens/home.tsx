@@ -13,9 +13,13 @@ const Home = () => {
     setThemeName(name === 'default' ? 'vintage' : 'default');
   };
   const colors = useColors();
+  const {isDarkMode} = useTheme();
   return (
     <View className="bg-background flex-1">
-      <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={colors.background}
+      />
       <Header />
       <View className="flex-1 mt-4">
         <ProductsList

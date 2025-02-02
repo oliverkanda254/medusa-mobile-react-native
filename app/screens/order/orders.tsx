@@ -93,7 +93,7 @@ const OrdersScreen = () => {
           <TouchableOpacity
             onPress={() => handleOrderPress(item.id)}
             className="bg-primary rounded-lg p-3">
-            <Text className="text-content-inverse">View</Text>
+            <Text className="text-content-secondary">View</Text>
           </TouchableOpacity>
         </View>
         <Text className="text-sm text-gray-500 mt-2">

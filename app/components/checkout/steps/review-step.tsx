@@ -21,11 +21,13 @@ const ReviewStep = ({cart}: ReviewStepProps) => {
   return (
     <View>
       <CartContent cart={cart} mode="checkout" />
-      <View className="mt-6 space-y-4">
+      <View className="mt-6 gap-4">
         {/* Selected Shipping Method */}
-        <View className="p-4 bg-gray-50 rounded-lg">
-          <Text className="font-content-bold mb-2">Shipping Method</Text>
-          <Text className="text-gray-700">
+        <View className="p-4 bg-background-secondary rounded-lg">
+          <Text className="font-content-bold mb-2 text-content">
+            Shipping Method
+          </Text>
+          <Text className="text-content">
             {selectedShippingMethod?.name ||
               selectedShippingMethod?.id ||
               'No shipping method selected'}
@@ -33,9 +35,11 @@ const ReviewStep = ({cart}: ReviewStepProps) => {
         </View>
 
         {/* Selected Payment Method */}
-        <View className="p-4 bg-gray-50 rounded-lg">
-          <Text className="font-content-bold mb-2">Payment Method</Text>
-          <Text className="text-gray-700">
+        <View className="p-4 bg-background-secondary rounded-lg">
+          <Text className="font-content-bold mb-2 text-content">
+            Payment Method
+          </Text>
+          <Text className="text-content">
             {selectedPaymentMethodId
               ? PAYMENT_PROVIDER_DETAILS_MAP[selectedPaymentMethodId]?.name ||
                 selectedPaymentMethodId

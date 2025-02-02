@@ -59,7 +59,7 @@ type CartItemProps = {
 
 const CartItem = ({item, currencyCode, mode}: CartItemProps) => {
   return (
-    <View className="flex flex-row gap-2 p-2 mb-2 bg-gray-100 rounded-lg items-center">
+    <View className="flex flex-row gap-2 p-2 mb-2 bg-background-secondary rounded-lg items-center">
       <Image
         source={{uri: formatImageUrl(item.thumbnail)}}
         className="w-20 h-20"

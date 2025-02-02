@@ -9,6 +9,7 @@ interface ThemeContext {
   colors: Colors;
   colorScheme: 'light' | 'dark';
   setThemeName: (name: string) => void;
+  isDarkMode: boolean;
 }
 
 export const ThemeContext = createContext<ThemeContext>({
@@ -16,6 +17,7 @@ export const ThemeContext = createContext<ThemeContext>({
   colors: themeColorSets.default.light,
   colorScheme: 'light',
   setThemeName: () => {},
+  isDarkMode: false,
 });
 
 type ThemeProviderProps = {
@@ -32,7 +34,13 @@ function ThemeProvider({
   const colors = themeColorSets[themeName][colorScheme];
   return (
     <ThemeContext.Provider
-      value={{name: themeName, setThemeName, colors, colorScheme}}>
+      value={{
+        name: themeName,
+        setThemeName,
+        colors,
+        colorScheme,
+        isDarkMode: colorScheme === 'dark',
+      }}>
       <View className="flex-1" style={themeStyles}>
         {children}
       </View>

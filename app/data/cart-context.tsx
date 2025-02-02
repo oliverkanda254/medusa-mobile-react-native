@@ -158,6 +158,9 @@ export const CartProvider = ({children}: CartProviderProps) => {
       {
         option_id: shippingMethodId,
       },
+      {
+        fields: additionalFields,
+      },
     );
     setCart(updatedCart);
     return updatedCart;
