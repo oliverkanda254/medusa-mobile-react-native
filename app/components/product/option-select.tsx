@@ -5,11 +5,21 @@ import {HttpTypes} from '@medusajs/types';
 import {tv} from 'tailwind-variants';
 
 const optionButton = tv({
-  base: 'border border-gray-200 bg-background-secondary h-10 rounded-lg py-2 px-6 flex-1 justify-center items-center',
+  base: 'border border-gray-200 h-10 rounded-lg py-2 px-6 flex-1 justify-center items-center',
   variants: {
     selected: {
-      true: 'border-primary',
-      false: 'active:shadow-lg',
+      true: 'border-primary bg-primary',
+      false: 'active:shadow-lg bg-background-secondary',
+    },
+  },
+});
+
+const optionButtonText = tv({
+  base: 'text-base text-center',
+  variants: {
+    selected: {
+      true: 'text-content-secondary',
+      false: 'text-content',
     },
   },
 });
@@ -46,7 +56,12 @@ const OptionSelect: React.FC<OptionSelectProps> = ({
                 className={optionButton({
                   selected: v === current,
                 })}>
-                <Text className="text-base text-center">{v}</Text>
+                <Text
+                  className={optionButtonText({
+                    selected: v === current,
+                  })}>
+                  {v}
+                </Text>
               </TouchableOpacity>
             );
           })}

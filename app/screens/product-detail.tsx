@@ -15,7 +15,6 @@ import Card from '@components/common/card';
 import utils from '@utils/common';
 import OptionSelect from '@components/product/option-select';
 import {HttpTypes} from '@medusajs/types';
-import twColors from 'tailwindcss/colors';
 import {useColors} from '@styles/hooks';
 import RoundedButton from '@components/common/rounded-button';
 import {useRegion} from '@data/region-context';
@@ -267,14 +266,15 @@ const ProductAttributes = ({product}: {product: any}) => {
 };
 
 const Features = () => {
+  const colors = useColors();
   return (
     <View className="flex-row gap-2">
       <FeatureWrapper>
-        <Icon name="swap" size={30} color={twColors.gray[500]} />
+        <Icon name="swap" size={30} color={colors.content} />
         <Text className="text-sm font-content-bold">7 days return</Text>
       </FeatureWrapper>
       <FeatureWrapper>
-        <Icon name="dingding" size={30} color={twColors.gray[500]} />
+        <Icon name="dingding" size={30} color={colors.content} />
         <Text className="text-sm font-content-bold">Fast Delivery</Text>
       </FeatureWrapper>
     </View>
@@ -283,7 +283,7 @@ const Features = () => {
 
 const FeatureWrapper = ({children}: PropsWithChildren<{}>) => {
   return (
-    <View className="flex-1 bg-background-secondary gap-2 rounded-lg p-2 justify-center items-center">
+    <View className="flex-1 bg-background-secondary gap-2 rounded-lg p-2 justify-center items-center opacity-80">
       {children}
     </View>
   );

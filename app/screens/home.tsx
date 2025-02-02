@@ -6,11 +6,14 @@ import Header from '@components/home/header';
 import ProductsList from '@components/product/product-list';
 import HeroCarousel from '@components/home/hero-carousel';
 import FeaturedCollection from '@components/home/featured-collection';
+import {themeNames} from '@styles/themes';
 
 const Home = () => {
   const {name, setThemeName} = useTheme();
   const switchTheme = () => {
-    setThemeName(name === 'default' ? 'vintage' : 'default');
+    const nextTheme =
+      themeNames[(themeNames.indexOf(name) + 1) % themeNames.length];
+    setThemeName(nextTheme);
   };
   const colors = useColors();
   const {isDarkMode} = useTheme();
