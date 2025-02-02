@@ -52,6 +52,10 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
     {},
   );
 
+  const isSingleVariant = useMemo(() => {
+    return product.variants?.length === 1;
+  }, [product.variants]);
+
   const optionsAsKeymap = (
     variantOptions: HttpTypes.StoreProductVariant['options'],
   ) => {
@@ -69,19 +73,20 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
       return;
     }
 
+    if (isSingleVariant) {
+      return product.variants[0];
+    }
+
     return product.variants.find(v => {
       const variantOptions = optionsAsKeymap(v.options);
       return utils.areEqualObjects(variantOptions, options);
     });
-  }, [product.variants, options]);
+  }, [product.variants, options, isSingleVariant]);
 
   //check if the selected options produce a valid variant
   const isValidVariant = useMemo(() => {
-    return product.variants?.some(v => {
-      const variantOptions = optionsAsKeymap(v.options);
-      return utils.areEqualObjects(variantOptions, options);
-    });
-  }, [product.variants, options]);
+    return selectedVariant?.id !== undefined;
+  }, [selectedVariant?.id]);
 
   const hasSelectedAllOptions = useMemo(() => {
     return product.options?.every(option => options[option.id]);
@@ -139,15 +144,17 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
               <ProductPrice product={product} variant={selectedVariant} />
             </View>
           </Card>
-          <View className="mt-4">
-            <Card>
-              <SelectVariant
-                product={product}
-                setOptionValue={setOptionValue}
-                options={options}
-              />
-            </Card>
-          </View>
+          {!isSingleVariant && (
+            <View className="mt-4">
+              <Card>
+                <SelectVariant
+                  product={product}
+                  setOptionValue={setOptionValue}
+                  options={options}
+                />
+              </Card>
+            </View>
+          )}
           <View className="mt-4">
             <Card>
               <ProductAttributes product={product} />
