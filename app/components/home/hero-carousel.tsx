@@ -102,8 +102,8 @@ const HeroCarousel = () => {
           progress={progress}
           data={data}
           onPress={onPressPagination}
-          dotClassName="bg-gray-200 rounded-full"
-          activeDotClassName="bg-gray-500"
+          dotClassName="bg-gray-400 rounded-full"
+          activeDotClassName="bg-content"
           containerClassName="gap-3"
           size={8}
         />
