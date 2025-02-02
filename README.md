@@ -1,79 +1,125 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Medusa Mobile
 
-# Getting Started
+![Medusa Mobile](https://i.imgur.com/mCnY05s.png)
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+A modern e-commerce mobile application built with React Native and Medusa. This app provides a complete shopping experience with features like product browsing, cart management, user authentication, and order tracking.
 
-## Step 1: Start the Metro Server
+## ✨ Features
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
+- 🛍️ Product browsing with infinite scroll
+- 👤 User authentication and profile management
+- 🔍 Categories and collections
+- 🛒 Cart management
+- 🏃‍♂️ Guest checkout
+- 📦 Order tracking
+- 🎨 Beautiful UI with smooth animations
+- 🌙 Dark/Light theme support
+- 🎭 Multiple themes built-in
+- 📱 Native performance with Reanimated
 
-To start Metro, run the following command from the _root_ of your React Native project:
+## 🎨 Themes
+![Multiple themes](https://i.imgur.com/P5D5m1u.png)
+
+Fully customizable using the existing themes or create your own.
+
+## 🛠️ Tech Stack
+
+- React Native
+- TypeScript
+- Medusa JS
+- React Query
+- React Navigation
+- NativeWind (TailwindCSS)
+- React Native Reanimated
+
+## 📋 Prerequisites
+
+Before you begin, ensure you have:
+- Node.js (v20 or newer)
+- React Native development environment set up
+- A running Medusa backend server
+- iOS/Android development tools installed
+
+## 🚀 Getting Started
+
+### Step 1: Environment Setup
+
+1. Clone the repository:
+```bash
+git clone git@github.com:bloomsynth/medusa-mobile-react-native.git medusa-mobile
+cd medusa-mobile
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure environment variables:
+```bash
+cp .env.template .env
+```
+Edit `.env` with your Medusa backend URL and publishable key.
+
+### Step 2: Start Metro Server
 
 ```bash
-# using npm
 npm start
-
-# OR using Yarn
-yarn start
 ```
 
-## Step 2: Start your Application
+### Step 3: Run the Application
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
-
-### For Android
-
+For Android:
 ```bash
-# using npm
 npm run android
-
-# OR using Yarn
-yarn android
 ```
 
-### For iOS
+For iOS:
 
-```bash
-# using npm
-npm run ios
+Work in progress. Minor setup to be done.
 
-# OR using Yarn
-yarn ios
+## 📁 Project Structure
+
+```
+app/
+├── components/     # Reusable UI components
+├── screens/        # Screen components
+├── data/          # Context providers and data management
+├── styles/        # Theme and style utilities
+├── utils/         # Helper functions
+└── api/           # API client configuration
 ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
+## ⚙️ Configuration
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+### Medusa Backend
 
-## Step 3: Modifying your App
+This app requires a Medusa backend server. Ensure that the server is running and accessible.
 
-Now that you have successfully run the app, let's modify it.
+1. Install and start Medusa server
+2. Update the `MEDUSA_BACKEND_URL` in your `.env` file. If you set the URL as localhost, then the Android emulator will not be able to connect to the server. Use your local IP address instead. ex: `http://192.168.1.100:9000` Run `ipconfig` to get your local IP address.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
+### Theme Customization
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
+The app supports multiple themes built-in with light and dark mode support. You can also create your own theme or customize the themes in:
+```
+app/styles/themes.ts
+```
 
-## Congratulations! :tada:
+## 📍 Roadmap
 
-You've successfully run and modified your React Native App. :partying_face:
+Here are the planned features and improvements:
 
-### Now what?
+- 💳 Stripe integration for secure payments
+- 🌍 Region selector for multi-region support
+- 🎁 Gift card and coupon code support
+- 🔄 Related products suggestions
+- 🔍 Product search functionality
+- 🎨 Advanced customization options
+- 🌐 Multi-language support and translations
+- 🔌 Plugins to extend the functionality of the app
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
+## 🛡️ License
 
-# Troubleshooting
+This project is licensed under the MIT License.
 
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
