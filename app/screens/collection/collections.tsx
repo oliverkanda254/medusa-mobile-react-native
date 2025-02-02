@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-  View,
-  FlatList,
-  TouchableOpacity,
-} from 'react-native';
+import {View, FlatList, TouchableOpacity} from 'react-native';
 import {useQuery} from '@tanstack/react-query';
 import {useNavigation} from '@react-navigation/native';
 import Navbar from '@components/common/navbar';
@@ -14,6 +10,7 @@ import Icon from '@react-native-vector-icons/ant-design';
 import {HttpTypes} from '@medusajs/types';
 import Loader from '@components/common/loader';
 import ErrorUI from '@components/common/error-ui';
+import FeaturedCollection from '@components/home/featured-collection';
 
 export default function Collections() {
   const colors = useColors();
@@ -47,7 +44,8 @@ export default function Collections() {
   return (
     <View className="flex-1 bg-background">
       <Navbar title="Collections" showBackButton={false} />
-      <View className="border-t border-gray-200">
+
+      <View className="border-t border-gray-200 mb-4">
         <FlatList
           data={data?.collections}
           renderItem={renderItem}
@@ -61,6 +59,9 @@ export default function Collections() {
             </View>
           }
         />
+      </View>
+      <View className="px-5">
+        <FeaturedCollection name="Trending Products" showCta={false} />
       </View>
     </View>
   );

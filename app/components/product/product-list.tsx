@@ -34,12 +34,14 @@ type ProductsListProps = {
   queryKey?: string[];
   additionalParams?: Partial<HttpTypes.StoreProductListParams>;
   headerComponent?: React.ReactElement;
+  name?: string;
 };
 
 const ProductsList = ({
   queryKey = ['products'],
   additionalParams = {},
   headerComponent,
+  name = 'Latest Products',
 }: ProductsListProps) => {
   const colors = useColors();
   const {region} = useRegion();
@@ -101,13 +103,22 @@ const ProductsList = ({
     );
   };
 
+  const renderHeader = () => {
+    return (
+      <View>
+        {headerComponent}
+        <Text className="text-lg font-content-bold">{name}</Text>
+      </View>
+    );
+  };
+
   return (
     <FlatList
       contentContainerClassName="gap-4 px-5 pb-10"
       columnWrapperClassName="gap-4"
       data={products}
       numColumns={2}
-      ListHeaderComponent={headerComponent}
+      ListHeaderComponent={renderHeader}
       renderItem={({item}) => <ProductItem product={item} />}
       keyExtractor={item => item.id ?? ''}
       onEndReached={loadMore}

@@ -1,7 +1,7 @@
 import {formatImageUrl} from '@utils/image-url';
 import {cssInterop} from 'nativewind';
 import React from 'react';
-import {Dimensions, Image, TouchableNativeFeedback, TouchableOpacity, View} from 'react-native';
+import {Dimensions, Image, View} from 'react-native';
 import {useSharedValue} from 'react-native-reanimated';
 import Carousel, {
   ICarouselInstance,
@@ -9,7 +9,7 @@ import Carousel, {
 } from 'react-native-reanimated-carousel';
 import {useQuery} from '@tanstack/react-query';
 import {useNavigation} from '@react-navigation/native';
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 const width = Dimensions.get('window').width;
 

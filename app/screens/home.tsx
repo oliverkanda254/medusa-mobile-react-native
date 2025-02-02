@@ -5,6 +5,7 @@ import {useColors, useTheme} from '@styles/hooks';
 import Header from '@components/home/header';
 import ProductsList from '@components/product/product-list';
 import HeroCarousel from '@components/home/hero-carousel';
+import FeaturedCollection from '@components/home/featured-collection';
 
 const Home = () => {
   const {name, setThemeName} = useTheme();
@@ -17,7 +18,14 @@ const Home = () => {
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
       <Header />
       <View className="flex-1 mt-4">
-        <ProductsList headerComponent={<HeroCarousel />} />
+        <ProductsList
+          headerComponent={
+            <>
+              <HeroCarousel />
+              <FeaturedCollection />
+            </>
+          }
+        />
       </View>
       <View className="absolute bottom-4 right-4">
         <TouchableOpacity
