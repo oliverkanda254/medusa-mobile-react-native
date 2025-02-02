@@ -33,41 +33,13 @@ type ProductListRes = {
 type ProductsListProps = {
   queryKey?: string[];
   additionalParams?: Partial<HttpTypes.StoreProductListParams>;
-};
-
-export const ProductItem = ({product}: {product: HttpTypes.StoreProduct}) => {
-  const {cheapestPrice} = getProductPrice({
-    product,
-  });
-  const navigation = useNavigation();
-  const navigateToProduct = () => {
-    navigation.navigate('ProductDetail', {productId: product.id});
-  };
-  return (
-    <TouchableOpacity
-      onPress={navigateToProduct}
-      className="flex-1 max-w-[50%]">
-      <View>
-        <View>
-          <Image
-            source={{uri: formatImageUrl(product.thumbnail)}}
-            className="w-full h-48 rounded-2xl"
-            resizeMode="cover"
-          />
-          <View className="absolute bottom-2 right-2">
-            <WishlistButton product={product} />
-          </View>
-        </View>
-        <Text className="text-lg font-content-bold">{product.title}</Text>
-        {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
-      </View>
-    </TouchableOpacity>
-  );
+  headerComponent?: React.ReactElement;
 };
 
 const ProductsList = ({
   queryKey = ['products'],
   additionalParams = {},
+  headerComponent,
 }: ProductsListProps) => {
   const colors = useColors();
   const {region} = useRegion();
@@ -135,6 +107,7 @@ const ProductsList = ({
       columnWrapperClassName="gap-4"
       data={products}
       numColumns={2}
+      ListHeaderComponent={headerComponent}
       renderItem={({item}) => <ProductItem product={item} />}
       keyExtractor={item => item.id ?? ''}
       onEndReached={loadMore}
@@ -150,6 +123,36 @@ const ProductsList = ({
       }
       onRefresh={refetch}
     />
+  );
+};
+
+const ProductItem = ({product}: {product: HttpTypes.StoreProduct}) => {
+  const {cheapestPrice} = getProductPrice({
+    product,
+  });
+  const navigation = useNavigation();
+  const navigateToProduct = () => {
+    navigation.navigate('ProductDetail', {productId: product.id});
+  };
+  return (
+    <TouchableOpacity
+      onPress={navigateToProduct}
+      className="flex-1 max-w-[50%]">
+      <View>
+        <View>
+          <Image
+            source={{uri: formatImageUrl(product.thumbnail)}}
+            className="w-full h-48 rounded-2xl"
+            resizeMode="cover"
+          />
+          <View className="absolute bottom-2 right-2">
+            <WishlistButton product={product} />
+          </View>
+        </View>
+        <Text className="text-lg font-content-bold">{product.title}</Text>
+        {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
+      </View>
+    </TouchableOpacity>
   );
 };
 

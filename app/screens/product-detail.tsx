@@ -39,7 +39,7 @@ function ProductScreen({route}: Props) {
 
   if (isPending) {
     return <Loader />;
-  } else if (error) {
+  } else if (error || !data?.product) {
     return <ErrorUI />;
   }
 

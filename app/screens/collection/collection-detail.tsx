@@ -27,7 +27,7 @@ export default function CollectionDetail({route}: CollectionDetailRouteParams) {
     return <Loader />;
   }
 
-  if (error) {
+  if (error || !data?.collection) {
     return <ErrorUI />;
   }
 

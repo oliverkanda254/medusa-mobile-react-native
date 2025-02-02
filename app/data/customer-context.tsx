@@ -93,13 +93,10 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
     lastName: string,
   ) => {
     try {
-      // Register using auth endpoint
       const token = await apiClient.auth.register('customer', 'emailpass', {
         email,
         password,
       });
-
-      console.log('token', token);
 
       setToken(token);
 
@@ -108,10 +105,10 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
         last_name: lastName,
         email,
       });
-
+      // There's some bug with the token received from the register endpoint
+      // so we need to login again
       await login(email, password);
     } catch (error) {
-      console.log('Error', error);
       throw error;
     }
   };

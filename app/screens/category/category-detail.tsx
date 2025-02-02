@@ -27,7 +27,7 @@ export default function CategoryDetail({route}: CategoryDetailRouteParams) {
     return <Loader />;
   }
 
-  if (error) {
+  if (error || !data?.product_category) {
     return <ErrorUI />;
   }
 

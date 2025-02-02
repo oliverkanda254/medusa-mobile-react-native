@@ -4,6 +4,7 @@ import Icon from '@react-native-vector-icons/ant-design';
 import {useColors, useTheme} from '@styles/hooks';
 import Header from '@components/home/header';
 import ProductsList from '@components/product/product-list';
+import HeroCarousel from '@components/home/hero-carousel';
 
 const Home = () => {
   const {name, setThemeName} = useTheme();
@@ -16,7 +17,7 @@ const Home = () => {
       <StatusBar barStyle="dark-content" backgroundColor={colors.background} />
       <Header />
       <View className="flex-1 mt-4">
-        <ProductsList />
+        <ProductsList headerComponent={<HeroCarousel />} />
       </View>
       <View className="absolute bottom-4 right-4">
         <TouchableOpacity
