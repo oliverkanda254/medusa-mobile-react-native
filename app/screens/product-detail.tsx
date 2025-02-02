@@ -19,6 +19,7 @@ import twColors from 'tailwindcss/colors';
 import {useColors} from '@styles/hooks';
 import RoundedButton from '@components/common/rounded-button';
 import {useRegion} from '@data/region-context';
+import WishlistButton from '@components/product/wishlist-button';
 
 type Props = StaticScreenProps<{
   productId: string;
@@ -133,7 +134,10 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
         </View>
         <View className="p-4 -mt-8">
           <Card>
-            <Text className="font-content-bold text-xl">{product.title}</Text>
+            <View className="flex-row justify-between items-center">
+              <Text className="font-content-bold text-xl">{product.title}</Text>
+              <WishlistButton product={product} />
+            </View>
             <View className="mt-2">
               <RatingSummary />
             </View>

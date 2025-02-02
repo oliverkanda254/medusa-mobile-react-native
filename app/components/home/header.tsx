@@ -2,6 +2,7 @@ import React from 'react';
 import RoundedButton from '@components/common/rounded-button';
 import {useCartQuantity, useLoggedIn} from '@data/hooks';
 import Icon from '@react-native-vector-icons/ant-design';
+import MaterialIcon from '@react-native-vector-icons/material-design-icons';
 import {TabActions, useNavigation} from '@react-navigation/native';
 import {useColors} from '@styles/hooks';
 import {TouchableOpacity, View} from 'react-native';
@@ -22,7 +23,7 @@ const Header = () => {
             navigation.navigate('SignIn');
           }
         }}>
-        <Icon name="user" size={18} color={colors.primary} />
+        <MaterialIcon name="account-outline" size={20} color={colors.primary} />
       </RoundedButton>
       <Text type="display" className="text-content">
         MEDUSA MOBILE

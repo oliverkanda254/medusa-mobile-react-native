@@ -19,6 +19,7 @@ import {formatImageUrl} from '@utils/image-url';
 import PreviewPrice from '@components/product/preview-price';
 import apiClient from '@api/client';
 import {useRegion} from '@data/region-context';
+import WishlistButton from './wishlist-button';
 
 const LIMIT = 10;
 
@@ -47,11 +48,16 @@ export const ProductItem = ({product}: {product: HttpTypes.StoreProduct}) => {
       onPress={navigateToProduct}
       className="flex-1 max-w-[50%]">
       <View>
-        <Image
-          source={{uri: formatImageUrl(product.thumbnail)}}
-          className="w-full h-48 rounded-2xl"
-          resizeMode="cover"
-        />
+        <View>
+          <Image
+            source={{uri: formatImageUrl(product.thumbnail)}}
+            className="w-full h-48 rounded-2xl"
+            resizeMode="cover"
+          />
+          <View className="absolute bottom-2 right-2">
+            <WishlistButton product={product} />
+          </View>
+        </View>
         <Text className="text-lg font-content-bold">{product.title}</Text>
         {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
       </View>

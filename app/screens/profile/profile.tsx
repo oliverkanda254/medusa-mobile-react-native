@@ -1,14 +1,19 @@
 import React from 'react';
 import {View, ScrollView, TouchableOpacity} from 'react-native';
 import Text from '@components/common/text';
-import Icon from '@react-native-vector-icons/ant-design';
+import MaterialIcon from '@react-native-vector-icons/material-design-icons';
 import {useColors} from '@styles/hooks';
 import {useNavigation} from '@react-navigation/native';
 import Navbar from '@components/common/navbar';
 import {useCustomer} from '@data/customer-context';
+import twColors from 'tailwindcss/colors';
 
 type ProfileOptionType = {
-  icon: 'user' | 'container' | 'environment' | 'logout';
+  icon:
+    | 'account-details'
+    | 'text-box-multiple-outline'
+    | 'map-marker-outline'
+    | 'logout';
   label: string;
   onPress?: () => void;
 };
@@ -46,17 +51,17 @@ const Profile = () => {
 
   const options: ProfileOptionType[] = [
     {
-      icon: 'user',
+      icon: 'account-details',
       label: 'Profile Information',
       onPress: () => navigation.navigate('ProfileDetail'),
     },
     {
-      icon: 'container',
+      icon: 'text-box-multiple-outline',
       label: 'Orders',
       onPress: () => navigation.navigate('Orders'),
     },
     {
-      icon: 'environment',
+      icon: 'map-marker-outline',
       label: 'Shipping Addresses',
       onPress: () => navigation.navigate('AddressList'),
     },
@@ -76,9 +81,11 @@ const Profile = () => {
         {/* Profile Info Section */}
         <View className="px-5 py-6">
           <View className="items-center mb-6">
-            <View className="w-24 h-24 rounded-full bg-gray-200 mb-4 items-center justify-center">
-              <Icon name="user" size={40} color="#9CA3AF" />
-            </View>
+            <MaterialIcon
+              name="account-circle"
+              size={100}
+              color={twColors.gray[300]}
+            />
             <Text type="display" className="text-content mb-1">
               {customer.first_name} {customer.last_name}
             </Text>
@@ -113,11 +120,11 @@ const ProfileOption = ({
   return (
     <TouchableOpacity onPress={onPress}>
       <View className="flex-row items-center pb-4 px-4 rounded-lg border-b border-gray-200">
-        <Icon name={icon} size={20} color={colors.content} />
+        <MaterialIcon name={icon} size={20} color={colors.content} />
         <Text type="content" className="flex-1 ml-3">
           {label}
         </Text>
-        <Icon name="right" size={16} color={colors.primary} />
+        <MaterialIcon name="chevron-right" size={16} color={colors.primary} />
       </View>
     </TouchableOpacity>
   );
