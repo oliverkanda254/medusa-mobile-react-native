@@ -6,6 +6,7 @@ import {HttpTypes} from '@medusajs/types';
 import LineItemQuantity from '@components/cart/line-item-quantity';
 import LineItemUnitPrice from '@components/cart/line-item-price';
 import {convertToLocale} from '@utils/product-price';
+import {formatImageUrl} from '@utils/image-url';
 
 type CartContentProps = {
   cart: HttpTypes.StoreCart;
@@ -30,9 +31,15 @@ const CartItems = ({
   cart?: StoreCart;
   mode: 'checkout' | 'cart';
 }) => {
+  if (!cart) {
+    return null;
+  }
+  const sortedItems = cart?.items?.sort((a, b) => {
+    return (a.created_at ?? '') < (b.created_at ?? '') ? -1 : 1;
+  });
   return (
     <View>
-      {cart?.items?.map(item => (
+      {sortedItems?.map(item => (
         <CartItem
           key={item.id}
           item={item}
@@ -53,7 +60,10 @@ type CartItemProps = {
 const CartItem = ({item, currencyCode, mode}: CartItemProps) => {
   return (
     <View className="flex flex-row gap-2 p-2 mb-2 bg-gray-100 rounded-lg items-center">
-      <Image source={{uri: item.thumbnail}} className="w-20 h-20" />
+      <Image
+        source={{uri: formatImageUrl(item.thumbnail)}}
+        className="w-20 h-20"
+      />
       <View className="flex-1">
         <Text className="text-base font-content-bold">
           {item.product_title}
