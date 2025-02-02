@@ -160,7 +160,7 @@ const ProductItem = ({product}: {product: HttpTypes.StoreProduct}) => {
             <WishlistButton product={product} />
           </View>
         </View>
-        <Text className="text-lg font-content-bold">{product.title}</Text>
+        <Text className="text-base leading-5 font-content-bold mt-1 mb-2">{product.title}</Text>
         {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
       </View>
     </TouchableOpacity>
