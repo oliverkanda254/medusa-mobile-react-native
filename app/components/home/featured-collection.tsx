@@ -53,7 +53,7 @@ const FeaturedCollection = ({
   }
 
   return (
-    <View className="mb-8">
+    <View className="mb-6">
       <View className="flex-row justify-between items-center mb-4">
         <Text className="text-lg font-content-bold">{name}</Text>
         {showCta && (
