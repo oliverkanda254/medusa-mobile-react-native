@@ -18,6 +18,7 @@ import {HttpTypes} from '@medusajs/types';
 import twColors from 'tailwindcss/colors';
 import {useColors} from '@styles/hooks';
 import RoundedButton from '@components/common/rounded-button';
+import {useRegion} from '@data/region-context';
 
 type Props = StaticScreenProps<{
   productId: string;
@@ -25,11 +26,12 @@ type Props = StaticScreenProps<{
 
 function ProductScreen({route}: Props) {
   const {productId} = route.params;
+  const {region} = useRegion();
   const {data, error, isPending} = useQuery({
     queryKey: ['product', productId],
     queryFn: () =>
       apiClient.store.product.retrieve(productId, {
-        region_id: 'reg_01JF9V7C1KZ7A46B4ZJ4KT5M70',
+        region_id: region?.id,
         fields: '*variants.inventory_quantity',
       }),
   });

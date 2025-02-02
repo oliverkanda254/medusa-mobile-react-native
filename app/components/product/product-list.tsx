@@ -18,17 +18,9 @@ import {getProductPrice} from '@utils/product-price';
 import {formatImageUrl} from '@utils/image-url';
 import PreviewPrice from '@components/product/preview-price';
 import apiClient from '@api/client';
+import {useRegion} from '@data/region-context';
 
 const LIMIT = 10;
-
-type ProductListParams = {
-  limit: number;
-  offset: number;
-  fields?: string;
-  region_id?: string;
-  category_id?: string;
-  collection_id?: string;
-};
 
 type ProductListRes = {
   products: HttpTypes.StoreProduct[];
@@ -39,7 +31,7 @@ type ProductListRes = {
 
 type ProductsListProps = {
   queryKey?: string[];
-  additionalParams?: Partial<ProductListParams>;
+  additionalParams?: Partial<HttpTypes.StoreProductListParams>;
 };
 
 export const ProductItem = ({product}: {product: HttpTypes.StoreProduct}) => {
@@ -72,6 +64,7 @@ const ProductsList = ({
   additionalParams = {},
 }: ProductsListProps) => {
   const colors = useColors();
+  const {region} = useRegion();
   const {
     data,
     fetchNextPage,
@@ -85,11 +78,12 @@ const ProductsList = ({
     queryKey,
     initialPageParam: 0,
     queryFn: async ({pageParam}) => {
-      const params: ProductListParams = {
+      const params: HttpTypes.StoreProductListParams = {
         limit: LIMIT,
         offset: pageParam,
         fields: '*variants.calculated_price',
-        region_id: 'reg_01JF9V7C1KZ7A46B4ZJ4KT5M70',
+        region_id: region?.id,
+        order: '-created_at',
         ...additionalParams,
       };
       return apiClient.store.product.list(params);
