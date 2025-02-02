@@ -2,7 +2,6 @@ import React from 'react';
 import {
   View,
   FlatList,
-  ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
 import {useQuery} from '@tanstack/react-query';
@@ -13,6 +12,8 @@ import {useColors} from '@styles/hooks';
 import apiClient from '@api/client';
 import Icon from '@react-native-vector-icons/ant-design';
 import {HttpTypes} from '@medusajs/types';
+import Loader from '@components/common/loader';
+import ErrorUI from '@components/common/error-ui';
 
 export default function Collections() {
   const colors = useColors();
@@ -23,27 +24,11 @@ export default function Collections() {
   });
 
   if (isLoading) {
-    return (
-      <View className="flex-1 bg-background">
-        <Navbar title="Collections" showBackButton={false} />
-        <View className="flex-1 items-center justify-center">
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      </View>
-    );
+    return <Loader />;
   }
 
   if (error) {
-    return (
-      <View className="flex-1 bg-background">
-        <Navbar title="Collections" showBackButton={false} />
-        <View className="flex-1 items-center justify-center p-4">
-          <Text className="text-base text-content text-center">
-            Something went wrong while loading collections.
-          </Text>
-        </View>
-      </View>
-    );
+    return <ErrorUI />;
   }
 
   const renderItem = ({item}: {item: HttpTypes.StoreCollection}) => (
