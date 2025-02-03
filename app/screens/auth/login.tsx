@@ -67,7 +67,7 @@ const SignIn = () => {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title="Sign In" />
 
       <View className="p-4 flex-1">

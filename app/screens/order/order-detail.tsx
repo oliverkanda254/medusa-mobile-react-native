@@ -51,7 +51,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
 
   if (!order) {
     return (
-      <View className="flex-1 bg-background">
+      <View className="flex-1 bg-background p-safe">
         <Navbar title="Order Details" />
         <Text className="text-center text-gray-500 mt-6">Order not found</Text>
       </View>
@@ -59,7 +59,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
   }
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title="Order Details" />
       <ScrollView className="flex-1">
         <View className="p-4">

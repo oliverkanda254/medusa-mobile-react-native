@@ -34,7 +34,7 @@ export default function CollectionDetail({route}: CollectionDetailRouteParams) {
   const collection = data.collection;
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title={collection.title} />
       <View className="flex-1 mt-4">
         <ProductsList

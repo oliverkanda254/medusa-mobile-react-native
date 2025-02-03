@@ -50,7 +50,7 @@ export default function Categories() {
   );
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title="Categories" showBackButton={false} />
       <View className="border-t border-gray-200">
         <FlatList

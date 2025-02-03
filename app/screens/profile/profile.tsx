@@ -24,7 +24,7 @@ const Profile = () => {
 
   if (!customer) {
     return (
-      <View className="flex-1 bg-background">
+      <View className="flex-1 bg-background p-safe">
         <Navbar title="Profile" showBackButton={false} />
         <View className="flex-1 justify-center items-center p-4">
           <Text className="text-lg text-content mb-4 text-center">
@@ -73,7 +73,7 @@ const Profile = () => {
   ];
 
   return (
-    <View className="bg-background flex-1">
+    <View className="flex-1 bg-background p-safe">
       {/* Header */}
       <Navbar title="Profile" showBackButton={false} />
 

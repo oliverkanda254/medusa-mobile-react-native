@@ -134,7 +134,7 @@ const OrdersScreen = () => {
   }
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title="Orders" />
       <FlatList
         data={data.orders}

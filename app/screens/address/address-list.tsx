@@ -89,7 +89,7 @@ const AddressList = () => {
 
   if (!customer) {
     return (
-      <View className="flex-1 bg-background">
+      <View className="flex-1 bg-background p-safe">
         <Navbar title="Addresses" />
         <Text className="text-center text-gray-500 mt-6">
           Please sign in to view your addresses

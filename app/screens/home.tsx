@@ -18,7 +18,7 @@ const Home = () => {
   const colors = useColors();
   const {isDarkMode} = useTheme();
   return (
-    <View className="bg-background flex-1">
+    <View className="flex-1 bg-background p-safe">
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={colors.background}

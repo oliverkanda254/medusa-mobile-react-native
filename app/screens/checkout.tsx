@@ -247,7 +247,7 @@ const Checkout = () => {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <View className="flex-1">
         <View className="mb-4">
           <Navbar title="Checkout" />

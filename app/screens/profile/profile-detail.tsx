@@ -163,7 +163,7 @@ const ProfileDetails = () => {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title="Profile Details" />
       <View className="flex-1">
         <ScrollView

@@ -34,7 +34,7 @@ export default function CategoryDetail({route}: CategoryDetailRouteParams) {
   const category = data.product_category;
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title={category.name} />
       <View className="flex-1 mt-4">
         <ProductsList

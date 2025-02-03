@@ -17,7 +17,7 @@ function TabBar({state, descriptors, navigation}: BottomTabBarProps) {
   };
 
   return (
-    <View className="flex-row justify-around bg-background items-center elevation-lg">
+    <View className="flex-row justify-around bg-background items-center elevation-lg pb-safe">
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
         const label = options.title !== undefined ? options.title : route.name;

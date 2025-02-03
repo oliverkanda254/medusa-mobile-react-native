@@ -31,6 +31,7 @@ import AddressForm from '@screens/address/address-form';
 import AddressList from '@screens/address/address-list';
 
 import '@styles/global.css';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export type RootStackParamList = StaticParamList<typeof RootStack>;
 
@@ -44,7 +45,9 @@ export default function App() {
           <CustomerProvider>
             <QueryClientProvider client={queryClient}>
               <GestureHandlerRootView>
-                <Navigation />
+                <SafeAreaProvider>
+                  <Navigation />
+                </SafeAreaProvider>
               </GestureHandlerRootView>
             </QueryClientProvider>
           </CustomerProvider>

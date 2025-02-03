@@ -123,7 +123,7 @@ const ProductContent = ({product}: {product: HttpTypes.StoreProduct}) => {
   };
 
   return (
-    <View className="flex-1 bg-background-secondary">
+    <View className="flex-1 bg-background-secondary p-safe">
       <ScrollView className="flex-1">
         <View>
           <ImageCarousel data={product.images ?? []} />

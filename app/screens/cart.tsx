@@ -21,8 +21,8 @@ const Cart = () => {
     navigation.navigate('Main');
   };
   return (
-    <View className="flex-1">
-      <ScrollView className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
+      <ScrollView className="flex-1">
         <Navbar title="Cart" />
         <View className="p-4">
           {!isEmptyCart ? (

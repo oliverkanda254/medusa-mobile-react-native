@@ -89,7 +89,7 @@ const AddressForm = ({route}: Props) => {
   });
 
   return (
-    <View className="flex-1 bg-background">
+    <View className="flex-1 bg-background p-safe">
       <Navbar title={isEditing ? 'Edit Address' : 'Add Address'} />
       <View className="flex-1">
         <ScrollView className="flex-1">
