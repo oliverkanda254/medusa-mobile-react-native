@@ -36,9 +36,8 @@ Fully customizable using the existing themes or create your own.
 
 Before you begin, ensure you have:
 - Node.js (v20 or newer)
-- React Native development environment set up
-- A running Medusa backend server
-- iOS/Android development tools installed
+- React Native development environment - [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment)
+- A running Medusa v2 backend server - [Medusa v2 installation](https://docs.medusajs.com/learn/installation)
 
 ## 🚀 Getting Started
 
@@ -59,7 +58,9 @@ npm install
 ```bash
 cp .env.template .env
 ```
-Edit `.env` with your Medusa backend URL and publishable key.
+Edit `.env` with your Medusa backend URL and publishable API key.
+
+NOTE: Update the `MEDUSA_BACKEND_URL` in your `.env` file. If you set the URL as localhost, then the Android emulator will not be able to connect to the server. Use your local IP address instead. example: `http://192.168.1.100:9000` Run `ipconfig` to get your local IP address.
 
 ### Step 2: Start Metro Server
 
@@ -75,35 +76,26 @@ npm run android
 ```
 
 For iOS:
+Install dependencies for iOS:
+```bash
+npx pod-install ios
+```
 
-Work in progress. Minor setup to be done.
+Run the application:
+```bash
+npm run ios
+```
 
 ## 📁 Project Structure
 
 ```
 app/
-├── components/     # Reusable UI components
-├── screens/        # Screen components
-├── data/          # Context providers and data management
+├── screens/       # Screen components
+├── components/    # Reusable UI components
+├── data/          # Data context providers
 ├── styles/        # Theme and style utilities
 ├── utils/         # Helper functions
 └── api/           # API client configuration
-```
-
-## ⚙️ Configuration
-
-### Medusa Backend
-
-This app requires a Medusa backend server. Ensure that the server is running and accessible.
-
-1. Install and start Medusa server
-2. Update the `MEDUSA_BACKEND_URL` in your `.env` file. If you set the URL as localhost, then the Android emulator will not be able to connect to the server. Use your local IP address instead. ex: `http://192.168.1.100:9000` Run `ipconfig` to get your local IP address.
-
-### Theme Customization
-
-The app supports multiple themes built-in with light and dark mode support. You can also create your own theme or customize the themes in:
-```
-app/styles/themes.ts
 ```
 
 ## 📍 Roadmap
@@ -115,8 +107,8 @@ Here are the planned features and improvements:
 - 🎁 Gift card and coupon code support
 - 🔄 Related products suggestions
 - 🔍 Product search functionality
+- 📦 cli-tool to generate a new project from this template
 - 🎨 Advanced customization options
-- 🌐 Multi-language support and translations
 - 🔌 Plugins to extend the functionality of the app
 
 ## 🛡️ License
