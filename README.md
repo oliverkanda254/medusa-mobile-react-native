@@ -1,6 +1,6 @@
 # Medusa Mobile
 
-![Medusa Mobile](https://i.imgur.com/mCnY05s.png)
+![Medusa Mobile](https://i.imgur.com/LKvNyGX.png)
 
 A modern e-commerce mobile application built with React Native and Medusa. This app provides a complete shopping experience with features like product browsing, cart management, user authentication, and order tracking.
 
@@ -18,7 +18,7 @@ A modern e-commerce mobile application built with React Native and Medusa. This 
 - 📱 Native performance with Reanimated
 
 ## 🎨 Themes
-![Multiple themes](https://i.imgur.com/P5D5m1u.png)
+![Multiple themes](https://i.imgur.com/CfogW5z.png)
 
 Fully customizable using the existing themes or create your own.
 
