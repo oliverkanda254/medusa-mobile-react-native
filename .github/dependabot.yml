@@ -1,0 +1,41 @@
+version: 2
+updates:
+  # Enable version updates for npm
+  - package-ecosystem: "npm"
+    # Look for `package.json` and `lock` files in the `root` directory
+    directory: "/"
+    # Check for updates once a week
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    # Labels on pull requests for version updates
+    labels:
+      - "dependencies"
+      - "npm"
+    # Specify version update preferences
+    versioning-strategy: increase
+    # Set reviewers for pull requests
+    reviewers:
+      - "ranjithkumar8352"
+    # Group all updates together
+    groups:
+      # Group React Native related updates
+      react-native:
+        patterns:
+          - "react-native*"
+          - "@react-native*"
+      # Group React related updates
+      react:
+        patterns:
+          - "react"
+          - "@types/react"
+      # Group Medusa related updates
+      medusa:
+        patterns:
+          - "@medusajs*"
+    # Limit number of open pull requests for version updates
+    open-pull-requests-limit: 10
+    # Allow up-to-minor updates for dependencies
+    allow:
+      - dependency-type: "direct"
+        update-type: "semver:minor" 
