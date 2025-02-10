@@ -70,8 +70,11 @@ const CommonButton = ({
   const colors = useColors();
   const renderContent = () => {
     if (loading) {
-      return <ActivityIndicator size="small" color={colors.contentSecondary} />;
+      const color =
+        variant === 'secondary' ? colors.content : colors.contentSecondary;
+      return <ActivityIndicator size="small" color={color} />;
     }
+
     if (children) {
       return children;
     }

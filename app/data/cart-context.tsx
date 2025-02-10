@@ -22,18 +22,23 @@ type CartUpdateData = Partial<{
   billing_address: AddressFields;
 }>;
 
+type ExtendedStoreCart = HttpTypes.StoreCart & {
+  promotions?: HttpTypes.StorePromotion[];
+};
+
 type CartContextType = {
-  cart?: HttpTypes.StoreCart;
-  setCart: React.Dispatch<
-    React.SetStateAction<HttpTypes.StoreCart | undefined>
-  >;
+  cart?: ExtendedStoreCart;
+  setCart: React.Dispatch<React.SetStateAction<ExtendedStoreCart | undefined>>;
   resetCart: () => Promise<void>;
   addToCart: (variantId: string, quantity: number) => Promise<void>;
   updateLineItem: (lineItemId: string, quantity: number) => Promise<void>;
-  updateCart: (data: CartUpdateData) => Promise<HttpTypes.StoreCart>;
+  updateCart: (data: CartUpdateData) => Promise<ExtendedStoreCart>;
   linkCartToCustomer: () => Promise<void>;
-  setShippingMethod: (shippingMethodId: string) => Promise<HttpTypes.StoreCart>;
+  setShippingMethod: (shippingMethodId: string) => Promise<ExtendedStoreCart>;
+  applyPromoCode: (code: string) => Promise<boolean>;
+  removePromoCode: (code: string) => Promise<void>;
 };
+
 
 const CartContext = createContext<CartContextType | null>(null);
 
@@ -42,7 +47,7 @@ type CartProviderProps = {
 };
 
 export const CartProvider = ({children}: CartProviderProps) => {
-  const [cart, setCart] = useState<HttpTypes.StoreCart>();
+  const [cart, setCart] = useState<ExtendedStoreCart>();
   const {region} = useRegion();
 
   const additionalFields = '+shipping_methods.name';
@@ -148,7 +153,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
         fields: additionalFields,
       },
     );
-    setCart(updatedCart);
+    setCart(updatedCart as ExtendedStoreCart);
     return updatedCart;
   };
 
@@ -162,8 +167,57 @@ export const CartProvider = ({children}: CartProviderProps) => {
         fields: additionalFields,
       },
     );
-    setCart(updatedCart);
+    setCart(updatedCart as ExtendedStoreCart);
     return updatedCart;
+  };
+
+  const applyPromoCode = async (code: string): Promise<boolean> => {
+    if (!cart?.id) {
+      throw new Error('No cart found');
+    }
+
+    try {
+      const existingCodes =
+        cart.promotions
+          ?.filter(p => !p.is_automatic && p.code)
+          .map(p => p.code!) || [];
+
+      const {cart: updatedCart} = (await apiClient.store.cart.update(cart.id, {
+        promo_codes: [...existingCodes, code],
+      })) as {cart: ExtendedStoreCart};
+      console.log('updatedCart', updatedCart);
+      setCart(updatedCart as ExtendedStoreCart);
+      // check if updatedCart has the promo code
+      const updatedCartPromoCodes = updatedCart.promotions
+        ?.filter(p => p.code)
+        .map(p => p.code);
+      if (updatedCartPromoCodes?.includes(code)) {
+        return true;
+      }
+      return false;
+    } catch (err) {
+      return false;
+    }
+  };
+
+  const removePromoCode = async (code: string) => {
+    if (!cart?.id) {
+      throw new Error('No cart found');
+    }
+
+    try {
+      const existingCodes =
+        cart.promotions
+          ?.filter(p => !p.is_automatic && p.code !== code)
+          .map(p => p.code!) || [];
+
+      const {cart: updatedCart} = await apiClient.store.cart.update(cart.id, {
+        promo_codes: existingCodes,
+      });
+      setCart(updatedCart as ExtendedStoreCart);
+    } catch (err) {
+      throw err;
+    }
   };
 
   return (
@@ -177,6 +231,8 @@ export const CartProvider = ({children}: CartProviderProps) => {
         updateCart,
         linkCartToCustomer,
         setShippingMethod,
+        applyPromoCode,
+        removePromoCode,
       }}>
       {children}
     </CartContext.Provider>

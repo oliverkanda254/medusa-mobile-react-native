@@ -228,20 +228,22 @@ const Checkout = () => {
     if (selectedProvider?.hasExternalStep) {
       return `Pay using ${selectedProvider.name}`;
     }
-    return 'Place order';
+    return 'Place Order';
   };
+
 
   const getCtaText = () => {
     switch (activeStep) {
       case 'address':
-        return 'Continue to delivery';
+        return 'Continue to Delivery';
       case 'delivery':
-        return 'Continue to payment';
+        return 'Continue to Payment';
       case 'payment':
-        return 'Review order';
+        return 'Review Order';
       case 'review':
         return getReviewStepCtaText();
       default:
+
         return 'Continue';
     }
   };

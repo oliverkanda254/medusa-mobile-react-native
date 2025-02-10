@@ -7,6 +7,7 @@ import LineItemQuantity from '@components/cart/line-item-quantity';
 import LineItemUnitPrice from '@components/cart/line-item-price';
 import {convertToLocale} from '@utils/product-price';
 import {formatImageUrl} from '@utils/image-url';
+import PromoCodeInput from '@components/cart/promo-code-input';
 
 type CartContentProps = {
   cart: HttpTypes.StoreCart;
@@ -16,10 +17,12 @@ type CartContentProps = {
 const CartContent = ({cart, mode}: CartContentProps) => {
   return (
     <View>
-      <CartItems cart={cart} mode={mode} />
-      <View className="mt-4">
-        <CartSummary cart={cart} />
+      <View className="mb-4">
+        <CartItems cart={cart} mode={mode} />
       </View>
+      {mode === 'cart' && <PromoCodeInput />}
+
+      <CartSummary cart={cart} />
     </View>
   );
 };
@@ -98,7 +101,7 @@ const CartSummary = ({cart}: {cart?: StoreCart}) => {
   const summaryItems: SummaryItem[] = [
     {
       name: 'Subtotal',
-      key: 'subtotal',
+      key: 'item_subtotal',
     },
     {
       name: 'Shipping',
@@ -109,6 +112,9 @@ const CartSummary = ({cart}: {cart?: StoreCart}) => {
       key: 'tax_total',
     },
   ];
+
+  const discountTotal = cart.discount_total || 0;
+
   return (
     <View>
       <Text className="text-2xl mb-4">Summary</Text>
@@ -126,6 +132,18 @@ const CartSummary = ({cart}: {cart?: StoreCart}) => {
             </Text>
           </View>
         ))}
+        {discountTotal > 0 && (
+          <View className="flex-row justify-between items-center">
+            <Text className="opacity-80">Discount</Text>
+            <Text className="text-base text-green-500">
+              -
+              {convertToLocale({
+                amount: discountTotal,
+                currency_code: cart.currency_code,
+              })}
+            </Text>
+          </View>
+        )}
       </View>
       <View className="border-t border-b border-gray-300 py-4">
         <View className="flex-row justify-between items-center">

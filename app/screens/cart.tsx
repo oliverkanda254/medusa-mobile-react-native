@@ -22,7 +22,7 @@ const Cart = () => {
   };
   return (
     <View className="flex-1 bg-background p-safe">
-      <ScrollView className="flex-1">
+      <ScrollView className="flex-1" keyboardShouldPersistTaps="handled">
         <Navbar title="Cart" />
         <View className="p-4">
           {!isEmptyCart ? (
