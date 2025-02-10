@@ -23,10 +23,11 @@ const button = tv({
 });
 
 const buttonText = tv({
-  base: 'font-content-bold block mx-4',
+  base: 'text-base font-content-bold block mx-4',
   variants: {
     disabled: {
       true: 'text-gray-400',
+
       false: '',
     },
     variant: {

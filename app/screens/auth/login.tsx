@@ -118,7 +118,7 @@ const SignIn = () => {
           />
 
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text className="text-center text-primary">
+            <Text className="text-base text-center text-primary">
               Don't have an account? Register
             </Text>
           </TouchableOpacity>
