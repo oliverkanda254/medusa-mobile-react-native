@@ -102,7 +102,7 @@ const OrderDetail = ({route}: OrderDetailProps) => {
                 <View className="flex-1 ml-3">
                   <View className="flex-row justify-between items-start">
                     <View className="flex-1">
-                      <Text className="font-medium">{item.title}</Text>
+                      <Text className="font-medium">{item.product_title}</Text>
                       {item.variant?.title && (
                         <Text className="text-sm text-gray-500">
                           Variant: {item.variant.title}
