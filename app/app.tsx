@@ -29,9 +29,10 @@ import {RegionProvider} from '@data/region-context';
 import {CustomerProvider} from '@data/customer-context';
 import AddressForm from '@screens/address/address-form';
 import AddressList from '@screens/address/address-list';
+import RegionSelect from '@screens/region-select';
 
 import '@styles/global.css';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 export type RootStackParamList = StaticParamList<typeof RootStack>;
 
@@ -72,29 +73,37 @@ const HomeTabs = createBottomTabNavigator({
 
 const RootStack = createNativeStackNavigator({
   initialRouteName: 'Splash',
-  screenOptions: {
-    headerShown: false,
-  },
-  screens: {
-    Splash: {
-      screen: Splash,
-      options: {
+  groups: {
+    App: {
+      screenOptions: {
         headerShown: false,
       },
+      screens: {
+        Main: HomeTabs,
+        Splash,
+        ProductDetail,
+        CategoryDetail,
+        CollectionDetail,
+        Cart,
+        Checkout,
+        SignIn,
+        Register,
+        Orders,
+        OrderDetail,
+        ProfileDetail,
+        AddressList,
+        AddressForm,
+      },
     },
-    Main: HomeTabs,
-    ProductDetail,
-    CategoryDetail,
-    CollectionDetail,
-    Cart,
-    Checkout,
-    SignIn,
-    Register,
-    Orders,
-    OrderDetail,
-    ProfileDetail,
-    AddressList,
-    AddressForm,
+    Modal: {
+      screenOptions: {
+        presentation: 'modal',
+        headerShown: false,
+      },
+      screens: {
+        RegionSelect: RegionSelect,
+      },
+    },
   },
 });
 

@@ -26,18 +26,20 @@ type FeaturedCollectionProps = {
   limit?: number;
   name?: string;
   showCta?: boolean;
+  queryKey?: string[];
 };
 
 const FeaturedCollection = ({
   limit = 10,
   name = 'Top Selling',
   showCta = true,
+  queryKey,
 }: FeaturedCollectionProps) => {
   const navigation = useNavigation();
   const {region} = useRegion();
 
   const {data} = useQuery({
-    queryKey: ['products', 'featured'],
+    queryKey: queryKey ?? ['products', name, region?.id],
     queryFn: async () => {
       const response = await apiClient.store.product.list({
         limit: limit,

@@ -3,6 +3,8 @@ import {HttpTypes} from '@medusajs/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '@api/client';
 
+const REGION_KEY = 'region_id';
+
 type RegionContextType = {
   region?: HttpTypes.StoreRegion;
   setRegion: React.Dispatch<
@@ -17,18 +19,17 @@ type RegionProviderProps = {
 };
 
 export const RegionProvider = ({children}: RegionProviderProps) => {
-  const storageKey = 'region_id';
   const [region, setRegion] = useState<HttpTypes.StoreRegion>();
 
   useEffect(() => {
-    if (region) {
+    if (region?.id) {
       // set its ID in the local storage in
       // case it changed
-      AsyncStorage.setItem(storageKey, region.id);
+      AsyncStorage.setItem(REGION_KEY, region.id);
       return;
     }
 
-    AsyncStorage.getItem(storageKey).then(regionId => {
+    AsyncStorage.getItem(REGION_KEY).then(regionId => {
       if (!regionId) {
         // retrieve regions and select the first one
         apiClient.store.region.list().then(data => {
@@ -44,7 +45,7 @@ export const RegionProvider = ({children}: RegionProviderProps) => {
           });
       }
     });
-  }, [region]);
+  }, [region?.id]);
 
   return (
     <RegionContext.Provider

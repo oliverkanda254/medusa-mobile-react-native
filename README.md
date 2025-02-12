@@ -102,14 +102,14 @@ app/
 
 Here are the planned features and improvements:
 
+- [x] 🎁 Promo code support
+- [x] 🌍 Region selector for multi-region support
 - [ ] 💳 Stripe integration for secure payments
-- [ ] 🌍 Region selector for multi-region support
 - [ ] 🔄 Related products suggestions
 - [ ] 🔍 Product search functionality
 - [ ] 📦 cli-tool to generate a new project from this template
 - [ ] 🎨 Advanced customization options
 - [ ] 🔌 Plugins to extend the functionality of the app
-- [x] 🎁 Promo code support
 
 ## 🛡️ License
 

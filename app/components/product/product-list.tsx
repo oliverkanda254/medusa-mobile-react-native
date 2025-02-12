@@ -38,7 +38,7 @@ type ProductsListProps = {
 };
 
 const ProductsList = ({
-  queryKey = ['products'],
+  queryKey,
   additionalParams = {},
   headerComponent,
   name = 'Latest Products',
@@ -55,7 +55,7 @@ const ProductsList = ({
     refetch,
     isRefetching,
   } = useInfiniteQuery({
-    queryKey,
+    queryKey: queryKey ?? ['products', region?.id],
     initialPageParam: 0,
     queryFn: async ({pageParam}) => {
       const params: HttpTypes.StoreProductListParams = {
@@ -160,7 +160,9 @@ const ProductItem = ({product}: {product: HttpTypes.StoreProduct}) => {
             <WishlistButton product={product} />
           </View>
         </View>
-        <Text className="text-base leading-5 font-content-bold mt-1 mb-2">{product.title}</Text>
+        <Text className="text-base leading-5 font-content-bold mt-1 mb-2">
+          {product.title}
+        </Text>
         {cheapestPrice && <PreviewPrice price={cheapestPrice} />}
       </View>
     </TouchableOpacity>

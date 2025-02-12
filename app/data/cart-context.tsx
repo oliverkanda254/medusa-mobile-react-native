@@ -1,8 +1,16 @@
-import React, {createContext, useContext, useEffect, useState} from 'react';
+import React, {
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+  useCallback,
+} from 'react';
 import {HttpTypes} from '@medusajs/types';
 import {useRegion} from './region-context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiClient from '@api/client';
+
+const CART_KEY = 'cart_id';
 
 type AddressFields = {
   first_name: string;
@@ -20,25 +28,23 @@ type CartUpdateData = Partial<{
   email: string;
   shipping_address: AddressFields;
   billing_address: AddressFields;
+  region_id: string;
 }>;
 
-type ExtendedStoreCart = HttpTypes.StoreCart & {
-  promotions?: HttpTypes.StorePromotion[];
-};
-
 type CartContextType = {
-  cart?: ExtendedStoreCart;
-  setCart: React.Dispatch<React.SetStateAction<ExtendedStoreCart | undefined>>;
+  cart?: HttpTypes.StoreCart;
+  setCart: React.Dispatch<
+    React.SetStateAction<HttpTypes.StoreCart | undefined>
+  >;
   resetCart: () => Promise<void>;
   addToCart: (variantId: string, quantity: number) => Promise<void>;
   updateLineItem: (lineItemId: string, quantity: number) => Promise<void>;
-  updateCart: (data: CartUpdateData) => Promise<ExtendedStoreCart>;
+  updateCart: (data: CartUpdateData) => Promise<HttpTypes.StoreCart>;
   linkCartToCustomer: () => Promise<void>;
-  setShippingMethod: (shippingMethodId: string) => Promise<ExtendedStoreCart>;
+  setShippingMethod: (shippingMethodId: string) => Promise<HttpTypes.StoreCart>;
   applyPromoCode: (code: string) => Promise<boolean>;
   removePromoCode: (code: string) => Promise<void>;
 };
-
 
 const CartContext = createContext<CartContextType | null>(null);
 
@@ -47,23 +53,72 @@ type CartProviderProps = {
 };
 
 export const CartProvider = ({children}: CartProviderProps) => {
-  const [cart, setCart] = useState<ExtendedStoreCart>();
+  const [cart, setCart] = useState<HttpTypes.StoreCart>();
   const {region} = useRegion();
 
   const additionalFields = '+shipping_methods.name';
 
+  const resetCart = async () => {
+    await AsyncStorage.removeItem(CART_KEY);
+    setCart(undefined);
+  };
+
+  const updateCart = useCallback(
+    async (data: CartUpdateData) => {
+      if (!cart?.id) {
+        throw new Error('No cart found');
+      }
+
+      const {cart: updatedCart} = await apiClient.store.cart.update(
+        cart.id,
+        data,
+        {
+          fields: additionalFields,
+        },
+      );
+      setCart(updatedCart);
+      return updatedCart;
+    },
+    [cart?.id],
+  );
+
+  const updateCartRegion = useCallback(
+    async (regionId: string) => {
+      try {
+        await updateCart({
+          region_id: regionId,
+        });
+      } catch (err) {
+        console.log('Failed to update cart region:', err);
+        // If updating region fails, fallback to reset
+        resetCart();
+      }
+    },
+    [updateCart],
+  );
+
   useEffect(() => {
-    if (cart || !region) {
+    // Don't do anything if region is not set
+    if (!region) {
       return;
     }
 
-    AsyncStorage.getItem('cart_id').then(cartId => {
+    // If cart exists, check if region matches, if not update the cart region
+    if (cart) {
+      if (cart.region_id !== region.id) {
+        updateCartRegion(region.id);
+      }
+      return;
+    }
+
+    // No cart exists, try to restore from storage or create new one
+    AsyncStorage.getItem(CART_KEY).then(cartId => {
       if (!cartId) {
         // create a cart
         apiClient.store.cart
           .create({region_id: region.id})
           .then(async ({cart: dataCart}) => {
-            await AsyncStorage.setItem('cart_id', dataCart.id);
+            await AsyncStorage.setItem(CART_KEY, dataCart.id);
             setCart(dataCart);
           })
           .catch(err => {
@@ -74,12 +129,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
         fetchCart(cartId);
       }
     });
-  }, [cart, region]);
-
-  const resetCart = async () => {
-    await AsyncStorage.removeItem('cart_id');
-    setCart(undefined);
-  };
+  }, [cart, region, updateCartRegion]);
 
   const fetchCart = async (cartId: string) => {
     return apiClient.store.cart
@@ -141,22 +191,6 @@ export const CartProvider = ({children}: CartProviderProps) => {
     setCart(dataCart);
   };
 
-  const updateCart = async (data: CartUpdateData) => {
-    if (!cart?.id) {
-      throw new Error('No cart found');
-    }
-
-    const {cart: updatedCart} = await apiClient.store.cart.update(
-      cart.id,
-      data,
-      {
-        fields: additionalFields,
-      },
-    );
-    setCart(updatedCart as ExtendedStoreCart);
-    return updatedCart;
-  };
-
   const setShippingMethod = async (shippingMethodId: string) => {
     const {cart: updatedCart} = await apiClient.store.cart.addShippingMethod(
       cart?.id || '',
@@ -167,7 +201,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
         fields: additionalFields,
       },
     );
-    setCart(updatedCart as ExtendedStoreCart);
+    setCart(updatedCart);
     return updatedCart;
   };
 
@@ -182,11 +216,10 @@ export const CartProvider = ({children}: CartProviderProps) => {
           ?.filter(p => !p.is_automatic && p.code)
           .map(p => p.code!) || [];
 
-      const {cart: updatedCart} = (await apiClient.store.cart.update(cart.id, {
+      const {cart: updatedCart} = await apiClient.store.cart.update(cart.id, {
         promo_codes: [...existingCodes, code],
-      })) as {cart: ExtendedStoreCart};
-      console.log('updatedCart', updatedCart);
-      setCart(updatedCart as ExtendedStoreCart);
+      });
+      setCart(updatedCart);
       // check if updatedCart has the promo code
       const updatedCartPromoCodes = updatedCart.promotions
         ?.filter(p => p.code)
@@ -214,7 +247,7 @@ export const CartProvider = ({children}: CartProviderProps) => {
       const {cart: updatedCart} = await apiClient.store.cart.update(cart.id, {
         promo_codes: existingCodes,
       });
-      setCart(updatedCart as ExtendedStoreCart);
+      setCart(updatedCart);
     } catch (err) {
       throw err;
     }
