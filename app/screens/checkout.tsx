@@ -15,6 +15,7 @@ import {
   PAYMENT_PROVIDER_DETAILS_MAP,
   createEmptyAddress,
   CheckoutStep,
+  addressSchema,
 } from '../types/checkout';
 import CheckoutSteps from '@components/checkout/checkout-steps';
 import AddressStep from '@components/checkout/steps/address-step';
@@ -48,7 +49,8 @@ const Checkout = () => {
     if (!cartAddress) {
       return createEmptyAddress();
     }
-    return {...createEmptyAddress(), ...cartAddress};
+    const result = addressSchema.safeParse(cartAddress);
+    return result.success ? result.data : createEmptyAddress();
   };
 
   const defaultValues: CheckoutFormData = {
@@ -57,7 +59,10 @@ const Checkout = () => {
     billing_address: getAddressFromCart(cart?.billing_address),
     use_same_billing:
       cart?.billing_address && cart?.shipping_address
-        ? utils.areEqualObjects(cart.billing_address, cart.shipping_address)
+        ? utils.areEqualObjects(
+            addressSchema.safeParse(cart.billing_address),
+            addressSchema.safeParse(cart.shipping_address),
+          )
         : true,
   };
 
@@ -126,11 +131,14 @@ const Checkout = () => {
     const {email, shipping_address, billing_address, use_same_billing} =
       form.getValues();
 
-    await updateCart({
+    const payload = {
       email,
       shipping_address,
       billing_address: use_same_billing ? shipping_address : billing_address,
-    });
+    };
+
+    await updateCart(payload);
+
     setActiveStep('delivery');
   };
 
@@ -231,7 +239,6 @@ const Checkout = () => {
     return 'Place Order';
   };
 
-
   const getCtaText = () => {
     switch (activeStep) {
       case 'address':
@@ -243,7 +250,6 @@ const Checkout = () => {
       case 'review':
         return getReviewStepCtaText();
       default:
-
         return 'Continue';
     }
   };
