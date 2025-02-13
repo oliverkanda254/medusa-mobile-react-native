@@ -39,13 +39,12 @@ Before you begin, ensure you have:
 - React Native development environment - [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment)
 - A running Medusa v2 backend server - [Medusa v2 installation](https://docs.medusajs.com/learn/installation)
 
-## 🚀 Getting Started
+## 🚀 Getting Started with React Native Medusa
 
 ### Step 1: Environment Setup
 
 1. Clone the repository:
 ```bash
-# Get started with React Native Medusa
 git clone git@github.com:bloomsynth/medusa-mobile-react-native.git medusa-mobile
 cd medusa-mobile
 ```
