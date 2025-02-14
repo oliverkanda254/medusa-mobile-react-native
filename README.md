@@ -120,7 +120,7 @@ Here are the planned features and improvements:
 
 ## 📖 Developer Guide
 
-### Cart Management
+### 🛒 Cart Management
 
 The cart functionality is provided through the `useCart` hook, which gives you access to cart operations and state.
 
@@ -254,7 +254,7 @@ function MyComponent() {
 }
 ```
 
-### Region Management
+### 🌍 Region Management
 
 The region functionality is provided through the `useRegion` hook, which handles region selection and persistence.
 
@@ -343,7 +343,7 @@ Region selection is automatically persisted using AsyncStorage:
 - On subsequent loads, restores the previously selected region
 - Region ID is stored under the 'region_id' key
 
-### Customer Management
+### 👤 Customer Management
 
 The customer functionality is provided through the `useCustomer` hook, which handles authentication and customer data management.
 
@@ -459,7 +459,81 @@ The customer session is automatically managed:
 - Token is automatically attached to API requests
 - Session is cleared on logout
 
-### Useful Hooks
+### 🎨 Theme Management
+
+The app includes a flexible theming system with built-in light/dark mode support and multiple color schemes.
+
+#### Basic Usage
+
+```tsx
+import { useColors, useTheme, useThemeName, useColorScheme } from '@styles/hooks';
+
+function MyComponent() {
+  const colors = useColors();          // Get current theme colors
+  const themeName = useThemeName();    // Get current theme name
+  const { colorScheme } = useColorScheme(); // Get 'light' or 'dark'
+
+  // Access theme colors
+  const {
+    primary,            // Brand/accent color
+    background,         // Main background
+    backgroundSecondary,// Secondary/card background
+    content,           // Main text color
+    contentSecondary   // Secondary text color
+  } = colors;
+}
+```
+
+#### Setting Default Theme
+
+```tsx
+// In app.tsx, set your preferred theme name in ThemeProvider
+<ThemeProvider name="default">
+  {/* ... other providers */}
+</ThemeProvider>
+```
+
+Available theme names:
+- "default" (Purple accent)
+- "vintage" (Warm red accent)
+- "funky" (Teal accent)
+- "eco" (Green accent)
+
+#### Changing Themes
+
+```tsx
+import { useTheme } from '@styles/hooks';
+
+function ThemeSwitcher() {
+  const { setThemeName } = useTheme();
+  
+  // Switch to a different theme
+  const switchTheme = (name: string) => {
+    setThemeName(name); // 'default' | 'vintage' | 'funky' | 'eco'
+  };
+}
+```
+#### System Dark Mode
+
+The theme system automatically responds to system dark mode changes through NativeWind's `useColorScheme` hook. Each theme includes both light and dark variants that are automatically applied based on the system setting.
+
+#### Styling Components
+
+The app uses NativeWind (TailwindCSS) for styling. Theme colors are available as Tailwind classes:
+
+```tsx
+function ThemedButton() {
+  return (
+    <TouchableOpacity className="bg-primary"> // Theme primary color
+      <Text className="text-content font-bold"> // Theme content color
+        Click Me
+      </Text>
+    </TouchableOpacity>
+  );
+}
+```
+
+### 🪝 Useful Hooks
 
 The app provides additional hooks for common functionality:
 
