@@ -86,6 +86,12 @@ Run the application:
 npm run ios
 ```
 
+## 📱 Expo Usage
+
+This project uses React Native CLI to ensure maximum flexibility for all developers. However, Expo users are more than welcome! You can easily add Expo support with a single command.
+
+[Learn more about migrating to Expo CLI](https://docs.expo.dev/bare/using-expo-cli/)
+
 ## 📁 Project Structure
 
 ```
