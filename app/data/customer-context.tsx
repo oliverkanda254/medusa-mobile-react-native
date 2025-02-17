@@ -1,7 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {HttpTypes} from '@medusajs/types';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import apiClient, {AUTH_TOKEN_KEY} from '@api/client';
+import apiClient from '@api/client';
 import {useCart} from './cart-context';
 
 type CustomerContextType = {
@@ -44,16 +43,6 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
     }
   };
 
-  const setToken = async (token: string) => {
-    await AsyncStorage.setItem(AUTH_TOKEN_KEY, token);
-    apiClient.client.setToken(token);
-  };
-
-  const clearToken = async () => {
-    await AsyncStorage.removeItem(AUTH_TOKEN_KEY);
-    apiClient.client.setToken('');
-  };
-
   const login = async (email: string, password: string) => {
     try {
       // Authenticate using the auth endpoint
@@ -64,7 +53,6 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
 
       // Check if the response is a string
       if (typeof response === 'string') {
-        setToken(response);
         await Promise.all([refreshCustomer(), linkCartToCustomer()]);
       } else {
         // Handle third party auth
@@ -78,7 +66,6 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
   const logout = async () => {
     try {
       await apiClient.auth.logout();
-      await clearToken();
       await resetCart();
       setCustomer(undefined);
     } catch (error) {
@@ -98,7 +85,7 @@ export const CustomerProvider = ({children}: CustomerProviderProps) => {
         password,
       });
 
-      setToken(token);
+      await apiClient.client.setToken(token);
 
       await apiClient.store.customer.create({
         first_name: firstName,

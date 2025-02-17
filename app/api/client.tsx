@@ -12,17 +12,10 @@ const apiClient = new Medusa({
   publishableKey: publishableKey,
   auth: {
     type: 'jwt',
-    jwtTokenStorageMethod: 'memory',
+    jwtTokenStorageMethod: 'custom',
+    jwtTokenStorageKey: AUTH_TOKEN_KEY,
+    storage: AsyncStorage,
   },
-});
-
-// Medusa JS sdk doesn't support RN completely
-// Working around it by manually setting the token with memory storage
-
-AsyncStorage.getItem(AUTH_TOKEN_KEY).then(token => {
-  if (token) {
-    apiClient.client.setToken(token);
-  }
 });
 
 export default apiClient;
