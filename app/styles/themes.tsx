@@ -1,8 +1,7 @@
 // import {vars} from 'nativewind';
-import {ThemeColorSets} from '@styles/types';
 import {applyThemes} from '@styles/utils';
 
-export const themeColorSets: ThemeColorSets = {
+export const themeColorSets = {
   default: {
     light: {
       primary: '#8e6cef',
@@ -69,9 +68,8 @@ export const themeColorSets: ThemeColorSets = {
   },
 };
 
+export type ThemeName = keyof typeof themeColorSets;
+
 export const themes = applyThemes(themeColorSets);
 
-export const themeNames = Object.keys(themeColorSets);
-
-//https://colorhunt.co/palette/c96868fadfa1fff4ea7eacb5
-//https://colorhunt.co/palette/3c552dca7373d7b26deee2b5
+export const themeNames = Object.keys(themeColorSets) as ThemeName[];
