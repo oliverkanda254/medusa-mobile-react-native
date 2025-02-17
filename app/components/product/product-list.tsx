@@ -35,6 +35,7 @@ type ProductsListProps = {
   additionalParams?: Partial<HttpTypes.StoreProductListParams>;
   headerComponent?: React.ReactElement;
   name?: string;
+  hideTitle?: boolean;
 };
 
 const ProductsList = ({
@@ -42,6 +43,7 @@ const ProductsList = ({
   additionalParams = {},
   headerComponent,
   name = 'Latest Products',
+  hideTitle = false,
 }: ProductsListProps) => {
   const colors = useColors();
   const {region} = useRegion();
@@ -107,7 +109,7 @@ const ProductsList = ({
     return (
       <View>
         {headerComponent}
-        <Text className="text-lg font-content-bold">{name}</Text>
+        {!hideTitle && <Text className="text-lg font-content-bold">{name}</Text>}
       </View>
     );
   };

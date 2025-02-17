@@ -42,6 +42,7 @@ export default function CategoryDetail({route}: CategoryDetailRouteParams) {
           additionalParams={{
             category_id: category.id,
           }}
+          hideTitle
         />
       </View>
     </View>

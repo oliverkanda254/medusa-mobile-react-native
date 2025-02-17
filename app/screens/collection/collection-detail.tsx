@@ -42,6 +42,7 @@ export default function CollectionDetail({route}: CollectionDetailRouteParams) {
           additionalParams={{
             collection_id: collection.id,
           }}
+          hideTitle
         />
       </View>
     </View>
