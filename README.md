@@ -45,7 +45,7 @@ Before you begin, ensure you have:
 
 1. Clone the repository:
 ```bash
-git clone git@github.com:bloomsynth/medusa-mobile-react-native.git medusa-mobile
+git clone git@github.com:sabat-12067/medusa-mobile-react-native.git medusa-mobile
 cd medusa-mobile
 ```
 
